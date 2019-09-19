@@ -1,0 +1,151 @@
+html {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+body {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+#navbar {
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    /* align-items: center; */
+    background-color: #81bf63;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 10;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+#navbar ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+#navbar ul :hover {
+    background-color: #666;
+}
+
+#navbar ul li {
+    list-style: none;
+    padding: 1vh;
+    font-size: 1rem;
+}
+
+#welcome-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+}
+
+p {
+    color: #81bf63;
+    font-size: 1rem;
+    margin-top: 0;
+}
+
+.projects {
+    text-align: center;
+    background-color: #5784C2;
+    padding: 10rem 2rem;
+    height: 100vh;
+    font-size: 1.5rem;
+}
+
+.projects h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 3vh 0 30px 0;
+    text-decoration: underline;
+}
+
+.project-grid {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    max-width: 1280px;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: auto auto;
+    justify-content: space-between; 
+    column-gap: 15px;
+    row-gap: 15px;
+    grid-template-areas: 
+        "a b c"
+        "d e f";
+}
+
+.project-grid a {
+    background-color: #555;
+}
+.project-grid img {
+    width: 100%;
+}
+
+.a {grid-area: a;}
+.b {grid-area: b;}
+.c {grid-area: c;}
+.d {grid-area: d;}
+.e {grid-area: e;}
+.f {grid-area: f;}
+
+.projectTitle {
+    text-decoration: none;
+    color: white;
+}
+
+/* .projectTitle :hover {
+
+} */
+
+.contact {
+    background-color: #444;
+    height: 100vh;
+}
+
+.contact a {
+    color: white;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+}
