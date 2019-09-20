@@ -83,7 +83,6 @@ p {
     font-size: 1.5rem;
     margin: 0;
     padding: 2vh 0 40px 0;
-    /* text-decoration: underline; */
 }
 
 .bar {
@@ -121,6 +120,7 @@ p {
 .d {grid-area: d;}
 .e {grid-area: e;}
 .f {grid-area: f;}
+
 
 .projectTitle {
     text-decoration: none;
@@ -180,8 +180,6 @@ p {
         margin: 0;
         padding: 0;
         grid-template-columns: 100%;
-        /* grid-template-rows: auto auto auto; */
-        /* justify-content: space-between;  */
         column-gap: 0px;
         row-gap: 30px;
         grid-template-areas: 
