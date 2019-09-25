@@ -1,3 +1,9 @@
+@media (max-width: 75em) {
+    html {
+      font-size: 60%;
+    }
+  }
+
 :root {
     --green:#81bf63;
     --gray: #444;
