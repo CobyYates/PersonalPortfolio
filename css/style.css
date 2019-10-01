@@ -127,12 +127,17 @@ p {
 .e {grid-area: e;}
 .f {grid-area: f;}
 
+.d img {
+    
+}
+
 
 .projectTitle {
     text-decoration: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 10px 0;
+    width: 100%;
 }
 
 .contact {
@@ -205,3 +210,4 @@ p {
     .f {grid-area: f;}
 
   }
+
