@@ -28,6 +28,8 @@ nav.appendChild(speciesBtn);
 nav.appendChild(starshipsBtn);
 nav.appendChild(vehiclesBtn);
 
+let filterArea = document.querySelector(".filters")
+
 //People images
 function getCharNumber(charURL) {
   let end = charURL.lastIndexOf("/");
@@ -41,6 +43,7 @@ function getCharNumber(charURL) {
 
 filmBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
   films.forEach(film => {
     let filmDiv = document.createElement("div");
     let filmTitle = document.createElement("h1");
@@ -68,6 +71,7 @@ filmBtn.addEventListener("click", () => {
 
 peopleBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
   people.forEach(person => {
     let personDiv = document.createElement("div");
     let name = document.createElement("h1");
@@ -88,10 +92,48 @@ peopleBtn.addEventListener("click", () => {
 
     mainArea.appendChild(personDiv);
   });
+  // Filtering the People Array
+const maleCharacters = people.filter(
+  person => person.gender === "male" && person.gender != "n/a"
+);
+const femaleCharacters = people.filter(person => person.gender === "female");
+const nuetralCharacters = people.filter(
+  person => person.gender != "male",
+  "female"
+);
+
+const allDivs = Array.from(document.querySelectorAll("div"));
+
+const mainHeader = document.querySelector("header");
+let maleButton = document.createElement("button");
+let femaleButton = document.createElement("button");
+maleButton.textContent = "Male Characters";
+femaleButton.textContent = "Female Characters";
+filterArea.appendChild(maleButton);
+filterArea.appendChild(femaleButton);
+
+maleButton.addEventListener("click", () => {
+  femaleCharacters.forEach(character => {
+    let matchedDiv = allDivs.find(oneDiv => {
+      return oneDiv.firstChild.textContent === character.name;
+    });
+    matchedDiv.setAttribute("style", "display: none;");
+  });
+});
+
+femaleButton.addEventListener("click", () => {
+  maleCharacters.forEach(character => {
+    let matchedDiv = allDivs.find(oneDiv => {
+      return oneDiv.firstChild.textContent === character.name;
+    });
+    matchedDiv.setAttribute("style", "display: none;");
+  });
+});
 });
 
 planetsBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
   planets.forEach(planet => {
     let planetDiv = document.createElement("div");
     let name = document.createElement("h1");
@@ -121,6 +163,7 @@ planetsBtn.addEventListener("click", () => {
 });
 speciesBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
 species.forEach(specy => {
     let specyDiv = document.createElement("div");
     let name = document.createElement("h1");
@@ -147,6 +190,7 @@ species.forEach(specy => {
 });
 starshipsBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
 starships.forEach(starship => {
     let starshipDiv = document.createElement("div");
     let name = document.createElement("h1");
@@ -176,6 +220,7 @@ starships.forEach(starship => {
 });
 vehiclesBtn.addEventListener("click", () => {
   mainArea.textContent = ""
+  filterArea.textContent = ""
 vehicles.forEach(vehicle => {
     let vehicleDiv = document.createElement("div");
     let name = document.createElement("h1");
@@ -205,43 +250,10 @@ vehicles.forEach(vehicle => {
 });
 
 
-// Filtering the People Array
-const maleCharacters = people.filter(
-  person => person.gender === "male" && person.gender != "n/a"
-);
-const femaleCharacters = people.filter(person => person.gender === "female");
-const nuetralCharacters = people.filter(
-  person => person.gender != "male",
-  "female"
-);
-
-const allDivs = Array.from(document.querySelectorAll("div"));
-
-const mainHeader = document.querySelector("header");
-let maleButton = document.createElement("button");
-let femaleButton = document.createElement("button");
-maleButton.textContent = "Male Characters";
-femaleButton.textContent = "Female Characters";
-nav.appendChild(maleButton);
-nav.appendChild(femaleButton);
-
-maleButton.addEventListener("click", () => {
-  femaleCharacters.forEach(character => {
-    let matchedDiv = allDivs.find(oneDiv => {
-      return oneDiv.firstChild.textContent === character.name;
-    });
-    matchedDiv.setAttribute("style", "display: none;");
-  });
-});
-
-femaleButton.addEventListener("click", () => {
-  maleCharacters.forEach(character => {
-    let matchedDiv = allDivs.find(oneDiv => {
-      return oneDiv.firstChild.textContent === character.name;
-    });
-    matchedDiv.setAttribute("style", "display: none;");
-  });
-});
+// let leftDecal = document.getElementsByClassName('left')
+// leftDecal.addEventListener("click", () => {
+//   element.classList.add(' bounceOutLeft')
+// })
 
 /*
 function call_me(api) {
