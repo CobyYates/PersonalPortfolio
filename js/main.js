@@ -92,7 +92,7 @@ peopleBtn.addEventListener("click", () => {
 
     mainArea.appendChild(personDiv);
   });
-  // Filtering the People Array
+  
 const maleCharacters = people.filter(
   person => person.gender === "male" && person.gender != "n/a"
 );
