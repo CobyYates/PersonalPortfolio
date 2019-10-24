@@ -97,10 +97,7 @@ const maleCharacters = people.filter(
   person => person.gender === "male" && person.gender != "n/a"
 );
 const femaleCharacters = people.filter(person => person.gender === "female");
-const nuetralCharacters = people.filter(
-  person => person.gender != "male",
-  "female"
-);
+const otherCharacters = people.filter(person => person.gender != "male" && person.gender != "female");
 
 const allDivs = Array.from(document.querySelectorAll("div"));
 
