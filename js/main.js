@@ -57,7 +57,7 @@ filmBtn.addEventListener("click", () => {
 
     filmTitle.textContent = film.title;
     filmCrawl.textContent = film.opening_crawl;
-    filmEpisode.textContent = "Episode: " + film.episode_id;
+    filmEpisode.textContent = `Episode: ${film.episode_id}`;
     pic.src = `https://starwars-visualguide.com/assets/img/films/${charNum}.jpg`;
 
     filmDiv.appendChild(filmTitle);
@@ -83,7 +83,7 @@ peopleBtn.addEventListener("click", () => {
     personDiv.setAttribute("class", "card");
 
     name.textContent = person.name;
-    gender.textContent = "Gender: " + person.gender;
+    gender.textContent = `Gender: ${person.gender}`;
     pic.src = `https://starwars-visualguide.com/assets/img/characters/${charNum}.jpg`;
 
     personDiv.appendChild(name);
@@ -92,6 +92,9 @@ peopleBtn.addEventListener("click", () => {
 
     mainArea.appendChild(personDiv);
   });
+
+  var males = people.filter(person => person.gender === "male")
+  
   
 const maleCharacters = people.filter(person => person.gender === "male");
 const femaleCharacters = people.filter(person => person.gender === "female");
@@ -102,7 +105,9 @@ const allDivs = Array.from(document.querySelectorAll("div"));
 let maleButton = document.createElement("button");
 let femaleButton = document.createElement("button");
 maleButton.textContent = "MALES";
+maleButton.setAttribute("class", "male")
 femaleButton.textContent = "FEMALES";
+femaleButton.setAttribute("class", "female")
 filterArea.appendChild(maleButton);
 filterArea.appendChild(femaleButton);
 
@@ -152,9 +157,9 @@ planetsBtn.addEventListener("click", () => {
     planetDiv.setAttribute("class", "card");
 
     name.textContent = planet.name;
-    diameter.textContent = "Diameter: " + planet.diameter;
-    terrain.textContent = "Terrain: " + planet.terrain;
-    population.textContent = "Population: " + planet.population;
+    diameter.textContent = `Diameter: ${planet.diameter}`;
+    terrain.textContent = `Terrain: ${planet.terrain}`;
+    population.textContent = `Population: ${planet.population}`;
     pic.src = planet.url;
 
     planetDiv.appendChild(name);
@@ -182,8 +187,8 @@ species.forEach(specy => {
     specyDiv.setAttribute("class", "card");
 
     name.textContent = specy.name;
-    classification.textContent = "Classification: " + specy.classification;
-    language.textContent = "Language: " + specy.language;
+    classification.textContent = `Classification: ${specy.classification}`;
+    language.textContent = `Language: ${specy.language}`;
     pic.src = `https://starwars-visualguide.com/assets/img/species/${charNum}.jpg`;
 
     specyDiv.appendChild(name);
@@ -192,6 +197,11 @@ species.forEach(specy => {
     specyDiv.appendChild(language);
 
     mainArea.appendChild(specyDiv);
+
+    pic.addEventListener('error', (event) => {
+      let badImage = event.target
+      badImage.src = './assets/images/Star_Wars_Logo.png'
+    })
   });
 });
 
@@ -211,9 +221,9 @@ starships.forEach(starship => {
     starshipDiv.setAttribute("class", "card");
 
     name.textContent = starship.name;
-    model.textContent = "Model: " + starship.model;
-    cost.textContent = "Cost: " + starship.cost_in_credits + " credits";
-    hyperdrive.textContent = "Hyperdrive Rating: " + starship.hyperdrive_rating;
+    model.textContent = `Model: ${starship.model}`;
+    cost.textContent = `Cost: ${starship.cost_in_credits} credits`;
+    hyperdrive.textContent = `Hyperdrive Rating: ${starship.hyperdrive_rating}`;
     pic.src = `https://starwars-visualguide.com/assets/img/starships/${charNum}.jpg`;
 
     starshipDiv.appendChild(name);
@@ -223,6 +233,11 @@ starships.forEach(starship => {
     starshipDiv.appendChild(hyperdrive);
 
     mainArea.appendChild(starshipDiv);
+
+    pic.addEventListener('error', (event) => {
+      let badImage = event.target
+      badImage.src = './assets/images/Star_Wars_Logo.png'
+    })
   });
 });
 
@@ -242,9 +257,9 @@ vehicles.forEach(vehicle => {
     vehicleDiv.setAttribute("class", "card");
 
     name.textContent = vehicle.name;
-    model.textContent = "Model: " + vehicle.model;
-    cost.textContent = "Cost: " + vehicle.cost_in_credits + " credits";
-    speedMax.textContent = "Max Speed: " + vehicle.max_atmosphering_speed;
+    model.textContent = `Model: ${vehicle.model}`;
+    cost.textContent = `Cost: ${vehicle.cost_in_credits} credits`;
+    speedMax.textContent = `Max Speed: ${vehicle.max_atmosphering_speed}`;
     pic.src = `https://starwars-visualguide.com/assets/img/vehicles/${charNum}.jpg`;
 
     vehicleDiv.appendChild(name);
@@ -254,14 +269,13 @@ vehicles.forEach(vehicle => {
     vehicleDiv.appendChild(speedMax);
 
     mainArea.appendChild(vehicleDiv);
+
+    pic.addEventListener('error', (event) => {
+      let badImage = event.target
+      badImage.src = './assets/images/Star_Wars_Logo.png'
+    })
   });
 });
-
-
-// let leftDecal = document.getElementsByClassName('left')
-// leftDecal.addEventListener("click", () => {
-//   element.classList.add(' bounceOutLeft')
-// })
 
 /*
 function call_me(api) {
