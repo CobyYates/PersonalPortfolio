@@ -35,7 +35,7 @@ body {
 }
 
 .decal {
-    width: 15%;
+    width: 10%;
     z-index: 9;
 }
 
@@ -54,7 +54,6 @@ a {
 
 #navbar {
     display: flex;
-    /* justify-content: flex-end; */
     position: sticky;
     flex-direction: column;
     position: fixed;
@@ -78,7 +77,21 @@ button {
     border: none;
     color: white;
     height: 60px;
-    width: 100px;
+    width: 80px;
+    padding: 0 0;
+}
+
+.ppl {
+    display: flex;
+    flex-direction: column;
+    padding-left: 78px;
+    position: fixed;
+    top: 0;
+}
+
+.ppl button {
+    height: 30px;
+    
 }
 
 button:hover {
@@ -173,8 +186,6 @@ hr {
 
 main {
     display: flex;
-    /* justify-content: space-between; */
-    /* justify-content: center; */
     width: 100%;
     padding-top: 60px;
     display: grid;
@@ -182,8 +193,6 @@ main {
     grid-gap: 3rem;
     width: 100%;
     max-width: 75%;
-    /* width: 70%; */
-    /* margin: 0 auto; */
     margin-left: auto;
     margin-right: 10%;
     margin-bottom: 6rem;

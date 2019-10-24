@@ -7,6 +7,7 @@ import { vehicles } from "./vehicles.js";
 
 let mainArea = document.querySelector("main");
 let nav = document.querySelector("nav");
+let sub = document.querySelector("body")
 let filmBtn = document.createElement("button");
 let peopleBtn = document.createElement("button");
 let planetsBtn = document.createElement("button");
@@ -21,12 +22,42 @@ speciesBtn.textContent = "Species";
 starshipsBtn.textContent = "Starships";
 vehiclesBtn.textContent = "Vehicles";
 
-nav.appendChild(filmBtn);
 nav.appendChild(peopleBtn);
+nav.appendChild(filmBtn);
 nav.appendChild(planetsBtn);
 nav.appendChild(speciesBtn);
 nav.appendChild(starshipsBtn);
 nav.appendChild(vehiclesBtn);
+
+const maleCharacters = people.filter(person => person.gender === "male");
+const femaleCharacters = people.filter(person => person.gender === "female");
+const otherCharacters = people.filter(person => person.gender !== "male" && person.gender !== "female");
+
+let pplDiv = document.createElement('div');
+sub.appendChild(pplDiv)
+pplDiv.setAttribute("class", "ppl");
+let maleButton = document.createElement("button");
+let femaleButton = document.createElement("button");
+
+peopleBtn.addEventListener("mouseover", () => {
+  /*let pplDiv = document.createElement('div');
+  peopleBtn.appendChild(pplDiv)
+  pplDiv.setAttribute("class", "ppl");
+  let maleButton = document.createElement("button");
+  let femaleButton = document.createElement("button");*/
+  maleButton.textContent = "Males";
+  femaleButton.textContent = "Females";
+  pplDiv.appendChild(maleButton);
+  pplDiv.appendChild(femaleButton);
+
+  pplDiv.addEventListener("mouseout", () => {
+    pplDiv.textContent = ''
+  })
+})
+
+/*peopleBtn.addEventListener("onmouseout", () => {
+  pplDiv.textContent = ''
+})*/
 
 let filterArea = document.querySelector(".filters")
 
@@ -92,25 +123,8 @@ peopleBtn.addEventListener("click", () => {
 
     mainArea.appendChild(personDiv);
   });
-  
-const maleCharacters = people.filter(
-  person => person.gender === "male" && person.gender != "n/a"
-);
-const femaleCharacters = people.filter(person => person.gender === "female");
-const nuetralCharacters = people.filter(
-  person => person.gender != "male",
-  "female"
-);
 
 const allDivs = Array.from(document.querySelectorAll("div"));
-
-const mainHeader = document.querySelector("header");
-let maleButton = document.createElement("button");
-let femaleButton = document.createElement("button");
-maleButton.textContent = "Male Characters";
-femaleButton.textContent = "Female Characters";
-filterArea.appendChild(maleButton);
-filterArea.appendChild(femaleButton);
 
 maleButton.addEventListener("click", () => {
   femaleCharacters.forEach(character => {
@@ -118,8 +132,18 @@ maleButton.addEventListener("click", () => {
       return oneDiv.firstChild.textContent === character.name;
     });
     matchedDiv.setAttribute("style", "display: none;");
+    notHuman()
   });
 });
+
+let notHuman = (() => {
+  otherCharacters.forEach(character => {
+    let matchedDiv = allDivs.find(oneDiv => {
+      return oneDiv.firstChild.textContent === character.name;
+    });
+    matchedDiv.setAttribute("style", "display: none;");
+  });
+})
 
 femaleButton.addEventListener("click", () => {
   maleCharacters.forEach(character => {
@@ -127,6 +151,7 @@ femaleButton.addEventListener("click", () => {
       return oneDiv.firstChild.textContent === character.name;
     });
     matchedDiv.setAttribute("style", "display: none;");
+    notHuman()
   });
 });
 });
@@ -161,6 +186,7 @@ planetsBtn.addEventListener("click", () => {
     mainArea.appendChild(planetDiv);
   });
 });
+
 speciesBtn.addEventListener("click", () => {
   mainArea.textContent = ""
   filterArea.textContent = ""
@@ -188,6 +214,7 @@ species.forEach(specy => {
     mainArea.appendChild(specyDiv);
   });
 });
+
 starshipsBtn.addEventListener("click", () => {
   mainArea.textContent = ""
   filterArea.textContent = ""
@@ -218,6 +245,7 @@ starships.forEach(starship => {
     mainArea.appendChild(starshipDiv);
   });
 });
+
 vehiclesBtn.addEventListener("click", () => {
   mainArea.textContent = ""
   filterArea.textContent = ""
