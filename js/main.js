@@ -116,17 +116,27 @@ maleButton.addEventListener("click", () => {
     let matchedDiv = allDivs.find(oneDiv => {
       return oneDiv.firstChild.textContent === character.name;
     });
-    matchedDiv.setAttribute("style", "display: none;");
+    matchedDiv.classList.add('animated', 'fadeOutLeft')
+    sleep(1000).then(() => {
+      matchedDiv.setAttribute("style", "display: none;");
+    })
     notHuman()
   });
 });
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 let notHuman = (() => {
   otherCharacters.forEach(character => {
     let matchedDiv = allDivs.find(oneDiv => {
       return oneDiv.firstChild.textContent === character.name;
     });
-    matchedDiv.setAttribute("style", "display: none;");
+    matchedDiv.classList.add('animated', 'zoomOutLeft')
+    sleep(1000).then(() => {
+      matchedDiv.setAttribute("style", "display: none;");
+    })
   });
 })
 
@@ -135,7 +145,10 @@ femaleButton.addEventListener("click", () => {
     let matchedDiv = allDivs.find(oneDiv => {
       return oneDiv.firstChild.textContent === character.name;
     });
-    matchedDiv.setAttribute("style", "display: none;");
+    matchedDiv.classList.add('animated', 'zoomOutLeft')
+    sleep(1000).then(() => {
+      matchedDiv.setAttribute("style", "display: none;");
+    })
     notHuman()
   });
 });
@@ -276,35 +289,6 @@ vehicles.forEach(vehicle => {
     })
   });
 });
-
-/*
-function call_me(api) {
-  (api.forEach((apis) => {
-    console.log(api)
-  let apiDiv = document.createElement('div')
-  let apiPar1 = document.createElement('h1')
-  let apiPar4 = document.createElement('img')
-  let apiPar2 = document.createElement('p')
-  let apiPar3 = document.createElement('p')
-
-  let charNum = getCharNumber(apis.url)
-  apiPar4.setAttribute('class', 'photo')
-
-
-  apiPar1.textContent = apis.title
-  apiPar4.textContent = apis.pic
-  apiPar2.textContent = apis.opening_crawl
-  apiPar3.textContent = 'Episode: ' + apis.episode_id
-  apiPar4.src = `https://starwars-visualguide.com/assets/img/films/${charNum}.jpg`
-
-  apiDiv.appendChild(apiPar1)
-  apiDiv.appendChild(apiPar4)
-  apiDiv.appendChild(apiPar2)
-  apiDiv.appendChild(apiPar3)
-
-  mainArea.appendChild(apiDiv)
-  })
-)}*/
 
 /* Notes
 Filter people who are on the dark side and make their cards glow red. Opposite for those on the good side*/
