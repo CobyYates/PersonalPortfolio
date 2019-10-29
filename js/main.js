@@ -116,9 +116,14 @@ maleButton.addEventListener("click", () => {
     let matchedDiv = allDivs.find(oneDiv => {
       return oneDiv.firstChild.textContent === character.name;
     });
-    matchedDiv.classList.add('animated', 'fadeOutLeft')
-    sleep(1000).then(() => {
-      matchedDiv.setAttribute("style", "display: none;");
+    if(matchedDiv.getAttribute("style") === "display: none;") {
+      matchedDiv.setAttribute("style", "display: revert;")
+    } else {
+      matchedDiv.setAttribute("style", "display: none;")
+    }
+    // matchedDiv.classList.add('animated', 'fadeOutLeft')
+    // sleep(1000).then(() => {
+      // matchedDiv.setAttribute("style", "display: none;");
     })
     notHuman()
   });
