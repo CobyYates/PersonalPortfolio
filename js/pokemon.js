@@ -32,20 +32,19 @@ function populateDOM(pokeArray) {
     pokeArray.forEach(pokemon => {
         let pokeDiv = document.createElement("div");
         let name = document.createElement("h3")
-        // let filmTitle = document.createElement("h1");
-        // let pic = document.createElement("img");
+        let pic = document.createElement("img");
 
-        // let charNum = getCharNumber(film.url);
+        let charNum = getCharNumber(pokemon.url);
         // pic.setAttribute("class", "photo");
         pokeDiv.setAttribute("class", "card");
 
         name.textContent = pokemon.name
 
-        // filmTitle.textContent = film.name;
-        //pic.src = `url for images`; //      '../images/${pokemon.id}.png'
+        pic.src = `https://github.com/fanzeyi/pokemon.json/blob/master/images/${charNum.id}.png`
+        // '../images/${pokemon.id}.png'
 
         pokeDiv.appendChild(name);
-        // pokeDiv.appendChild(pic);
+        pokeDiv.appendChild(pic);
 
         mainArea.appendChild(pokeDiv);
     });
