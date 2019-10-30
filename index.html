@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Personal Portfolio</title>
 </head>
@@ -14,13 +15,25 @@
         <ul>
             <li><a href="#welcome-section">About</a></li>
             <li><a href="#projects">Work</a></li>
-            <li><a href="">Contact</a></li>
+            <li><a href="#interests">Interests</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <section id="welcome-section">
-        <h1>Hey I'm Coby</h1>
-        <p>a web developer</h2>
+        <div class="intro">
+            <img src="/assets/images/Profile Picture.JPG" alt="Profile Picture">
+            <h1>Hey I'm Coby</h1>
+            <p>a web developer, ideator, creator, entrepreneur</h2>
+        </div>
+        
+        <div class="skills">
+            <!-- <h3>Skills</h3> -->
+            <div>Languages<p id="lang"></p></div>
+            <div>Frameworks<p id="frameworks"></p></div>
+            <div>Software<p id="software"></p></div>
+            <div>Additional<p id="additional"></p></div>
+        </div>
     </section>
 
     <section class="projects" id="projects">
@@ -32,29 +45,78 @@
         <div class="project-grid">
             <a href="https://coberspersonalinterests.netlify.com/" class="project project-tile a"><img src="assets/images/Personal Interests.png" alt="">
                 <p class="projectTitle">Insterests Assignment</p>
+                <p class="details">Built in: HTML and CSS</p>
             </a>
             <a href="starwars.html" class="project project-tile b"><img src="assets/images/Star_Wars.png" alt="">
                 <p class="projectTitle">Star Wars API</p>
+                <p class="details">Built in: HTML, CSS, and JavaScript</p>
             </a>
             <a href="" class="project project-tile c"><img src="assets/images/Render.jpg" alt="">
                 <p class="projectTitle">3D Kitchen Design</p>
+                <p class="details">Built in: Google SketchUp</p>
             </a>
             <a href="https://car-garage.netlify.com/" class="project project-tile d"><img src="assets/images/garage.png" alt="">
                 <p class="projectTitle">Garage Website</p>
+                <p class="details">Built in: VueJS using Vuetify</p>
             </a>
             <a href="" class="project project-tile e"><img src="assets/images/Design.png" alt="">
                 <p class="projectTitle">Design</p>
+                <p class="details">Built in: Adobe XD</p>
             </a>
             <a href="https://www.goodgrindz.com/" class="project project-tile f"><img src="assets/images/GoodGrindz.png" alt="">
                 <p class="projectTitle">GoodGrindz Website</p>
+                <p class="details">Built in: WordPress</p>
             </a>
         </div>
     </section>
 
-    <section class="contact">
+    <section class="favorites" id="interests">
+        <h2>Interests</h2>
+        <h3>Podcasts</h3>
+        <div class="podcasts">
+            <div class="box">
+                <img src="https://pbs.twimg.com/profile_images/875075946096676864/MEEwGMpY.jpg" alt="Syntax.fm Podcast Logo">
+                <a href="https://syntax.fm/">Syntax.fm</a>
+            </div>
+            <div class="box">
+                <img src="https://is5-ssl.mzstatic.com/image/thumb/Podcasts123/v4/ea/a6/7e/eaa67ecf-bf4b-4d01-d1e4-600180ec9393/mza_6971347381622250290.jpg/268x0w.jpg" alt="Indie Hackers Podcast Logo">
+                <a href="http://www.indiehackers.com/podcast">Indie Hackers</a>
+            </div>
+            <div class="box">
+                <img src="https://secureservercdn.net/198.71.233.109/d1n.c86.myftpupload.com/wp-content/uploads/2019/02/em-logo-black-text-252px.png" alt="Ed Mylett Podcast Logo">
+                <a href="https://www.edmylett.com/podcasts/">Ed Mylett</a>
+            </div>
+        </div>
+        <h3>Streamers</h3>
+        <div class="streamer">
+            <div class="box">
+                <img src="https://scontent.cdninstagram.com/vp/425e7d2eb05930148e0a997bb7bd93c3/5E22FAA4/t51.2885-15/e35/c120.0.839.839a/s480x480/65267568_2341330089528350_8232394546170038316_n.jpg?_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_cat=102" alt="Sluggero Logo">
+                <a href="https://twitch.tv/sluggero">Sluggero</a>
+            </div>
+            <div class="box">
+                <img src="https://yt3.ggpht.com/a/AGF-l78AU-ZoojhNQMlof0v7QlzDDPV9tXIK3izEig=s900-c-k-c0xffffffff-no-rj-mo" alt="">
+                <a href="https://twitch.tv/summit1g">Summit 1G</a>
+            </div>
+            <div class="box">
+                <img class="spreeezy" src="https://spreeezy.com/wp-content/uploads/2019/08/cropped-sprEEEzyLogoLowGlow.png" alt="Spreeezy Logo">
+                <a href="http://www.twitch.tv/spreeezy">SprEEEzy</a>
+            </div>
+        </div>
+        <h3></h3>
+        <div>
+            <div class="box">
+            </div>
+            <div class="box">                
+            </div>
+            <div class="box">            
+            </div>
+        </div>
+
+    </section>
+
+    <section class="contact" id="contact">
         <div class="contact-section-header">
         <h1>Let's work together...</h1>
-        <p>I love ideation</p>
         </div>
         <div class="contact-links">
             <a href="https://facebook.com/CobylYates" target="_blank" class="btn contact-details"><i class="fa fa-facebook-square" style="color:#81bf63"></i> Facebook</a>
@@ -65,6 +127,6 @@
         </div>
     </section>
 
-    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

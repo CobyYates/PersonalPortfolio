@@ -111,27 +111,63 @@ femaleButton.setAttribute("class", "female")
 filterArea.appendChild(maleButton);
 filterArea.appendChild(femaleButton);
 
-maleButton.addEventListener("click", () => {
-  femaleCharacters.forEach(character => {
+/*maleButton.addEventListener("click", () => {
+  maleCharacters.forEach(character => {
     let matchedDiv = allDivs.find(oneDiv => {
       return oneDiv.firstChild.textContent === character.name;
     });
     if(matchedDiv.getAttribute("style") === "display: none;") {
-      matchedDiv.setAttribute("style", "display: revert;")
+      maleCharacters.setAttribute("style", "display: revert;")
     } else {
       matchedDiv.setAttribute("style", "display: none;")
     }
     // matchedDiv.classList.add('animated', 'fadeOutLeft')
-    // sleep(1000).then(() => {
-      // matchedDiv.setAttribute("style", "display: none;");
+    sleep(1000).then(() => {
+      matchedDiv.setAttribute("style", "display: none;");
     })
     notHuman()
   });
-});
+});*/
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+
+maleButton.addEventListener("click", () => {
+  femaleCharacters.forEach(character => {
+    let matchedDiv = allDivs.find(oneDiv => {
+      return oneDiv.firstChild.textContent === character.name;
+    })
+    matchedDiv.setAttribute("style", "display: none")
+    notHuman()
+    
+    maleCharacters.forEach(character => {
+      let matchedDiv = allDivs.find(oneDiv => {
+        return oneDiv.firstChild.textContent === character.name;
+      })
+      matchedDiv.classList.add('animated', 'zoomIn')
+      matchedDiv.setAttribute("style", "display: revert")
+  })
+})
+})
+
+femaleButton.addEventListener("click", () => {
+  maleCharacters.forEach(character => {
+    let matchedDiv = allDivs.find(oneDiv => {
+      return oneDiv.firstChild.textContent === character.name;
+    })
+    matchedDiv.setAttribute("style", "display: none")
+    notHuman()
+    
+    femaleCharacters.forEach(character => {
+      let matchedDiv = allDivs.find(oneDiv => {
+        return oneDiv.firstChild.textContent === character.name;
+      })
+      matchedDiv.classList.add('animated', 'zoomIn')
+      matchedDiv.setAttribute("style", "display: revert")
+  })
+})
+})
 
 let notHuman = (() => {
   otherCharacters.forEach(character => {
@@ -144,19 +180,6 @@ let notHuman = (() => {
     })
   });
 })
-
-femaleButton.addEventListener("click", () => {
-  maleCharacters.forEach(character => {
-    let matchedDiv = allDivs.find(oneDiv => {
-      return oneDiv.firstChild.textContent === character.name;
-    });
-    matchedDiv.classList.add('animated', 'zoomOutLeft')
-    sleep(1000).then(() => {
-      matchedDiv.setAttribute("style", "display: none;");
-    })
-    notHuman()
-  });
-});
 });
 
 planetsBtn.addEventListener("click", () => {

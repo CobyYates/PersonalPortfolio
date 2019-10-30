@@ -27,25 +27,40 @@ function getCharNumber(charURL) {
     }
   }
 
+// var card = document.querySelector('.card');
+//   card.addEventListener('click', function() {
+//     card.classList.toggle('is-flipped');
+// });
+
 
 function populateDOM(pokeArray) {
     pokeArray.forEach(pokemon => {
-        let pokeDiv = document.createElement("div");
-        let name = document.createElement("h3")
-        let pic = document.createElement("img");
+      let cardDiv = document.createElement("div")
+      let pokeFDiv = document.createElement("div");
+      let pokeBDiv = document.createElement("div")
+      let name = document.createElement("h3")
+      let pic = document.createElement("img");
 
-        let charNum = getCharNumber(pokemon.url);
-        // pic.setAttribute("class", "photo");
-        pokeDiv.setAttribute("class", "card");
+      let charNum = getCharNumber(pokemon.url);
+      /* pic.setAttribute("class", "photo");
+      pokeFDiv.setAttribute("class", "card");*/
+      cardDiv.className = "card"
+      pokeFDiv.className = "card__face card__face--front"
+      pokeBDiv.className = "card__face card__face--back"
 
-        name.textContent = pokemon.name
+      name.textContent = pokemon.name
+      pic.src = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${charNum}.png`
 
-        pic.src = `https://github.com/fanzeyi/pokemon.json/blob/master/images/${charNum.id}.png`
-        // '../images/${pokemon.id}.png'
+      cardDiv.appendChild(pokeBDiv)      
+      pokeFDiv.appendChild(pic);
+      cardDiv.appendChild(pokeFDiv)
+      pokeBDiv.appendChild(name);
 
-        pokeDiv.appendChild(name);
-        pokeDiv.appendChild(pic);
-
-        mainArea.appendChild(pokeDiv);
+      mainArea.appendChild(cardDiv);
     });
 }
+
+var card = document.querySelector('.card');
+  card.addEventListener('click', function() {
+    card.classList.toggle('is-flipped');
+});
