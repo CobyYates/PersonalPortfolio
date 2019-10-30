@@ -145,7 +145,7 @@ maleButton.addEventListener("click", () => {
       let matchedDiv = allDivs.find(oneDiv => {
         return oneDiv.firstChild.textContent === character.name;
       })
-      matchedDiv.classList.add('animated', 'zoomIn')
+      // matchedDiv.classList.add('animated', 'zoomIn')
       matchedDiv.setAttribute("style", "display: revert")
   })
 })
@@ -163,7 +163,7 @@ femaleButton.addEventListener("click", () => {
       let matchedDiv = allDivs.find(oneDiv => {
         return oneDiv.firstChild.textContent === character.name;
       })
-      matchedDiv.classList.add('animated', 'zoomIn')
+      // matchedDiv.classList.add('animated', 'zoomIn')
       matchedDiv.setAttribute("style", "display: revert")
   })
 })
