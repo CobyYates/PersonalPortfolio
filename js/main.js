@@ -7,6 +7,7 @@ import { vehicles } from "./vehicles.js";
 
 let mainArea = document.querySelector("main");
 let nav = document.querySelector("nav");
+let home = document.createElement("button");
 let filmBtn = document.createElement("button");
 let peopleBtn = document.createElement("button");
 let planetsBtn = document.createElement("button");
@@ -14,6 +15,7 @@ let speciesBtn = document.createElement("button");
 let starshipsBtn = document.createElement("button");
 let vehiclesBtn = document.createElement("button");
 
+home.textContent = "HOME";
 filmBtn.textContent = "FILMS";
 peopleBtn.textContent = "PEOPLE";
 planetsBtn.textContent = "PLANETS";
@@ -21,6 +23,7 @@ speciesBtn.textContent = "SPECIES";
 starshipsBtn.textContent = "STARSHIPS";
 vehiclesBtn.textContent = "VEHICLES";
 
+nav.appendChild(home);
 nav.appendChild(filmBtn);
 nav.appendChild(peopleBtn);
 nav.appendChild(planetsBtn);
@@ -40,6 +43,8 @@ function getCharNumber(charURL) {
     return charID;
   }
 }
+
+home.addEventListener("click", () => {document.location.href="index.html"})
 
 filmBtn.addEventListener("click", () => {
   mainArea.textContent = ""
