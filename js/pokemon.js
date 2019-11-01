@@ -1,3 +1,21 @@
+// Navigation
+let nav = document.querySelector("nav");
+let ul = document.createElement("ul")
+let home = document.createElement("li")
+let all = document.createElement("li")
+let type = document.createElement("li")
+
+home.textContent = "HOME"
+all.textContent = "ALL POKEMON"
+type.textContent = "TYPES"
+
+ul.appendChild(home)
+ul.appendChild(all)
+ul.appendChild(type)
+nav.appendChild(ul)
+
+
+
 // Reusable async function to fetch data from url param in the function call
 async function getAPIData(url) {
   try {
@@ -10,90 +28,164 @@ async function getAPIData(url) {
 }
 
 // now, use the returned async data
-const theData = getAPIData('https://pokeapi.co/api/v2/pokemon/')
-.then(data => {
-      for (const pokemon of data.results) {
-        getAPIData(pokemon.url)
-        .then(pokeData => {
-          populateDOM(pokeData)
-        })
-      }
+const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
+  for (const pokemon of data.results) {
+    getAPIData(pokemon.url).then(pokeData => {
+      populateDOM(pokeData);
+    });
   }
-);
+});
 
-const capitalize = (s) => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
+const capitalize = s => {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
 
 let mainArea = document.querySelector("main");
 
 function getPokeNumber(id) {
-  if(id < 10) return `00${id}`
-  if(id > 9 && id < 100) {
-    return `0${id}`
-  } else return id
+  if (id < 10) return `00${id}`;
+  if (id > 9 && id < 100) {
+    return `0${id}`;
+  } else return id;
 }
 
-/*function getPowers(arr) {
-  for (let i = 0; i < array.length; i++) {
-    let arrs = arr[i]    
-  }
-}*/
-
 function populateDOM(single_pokemon) {
-    let pokeScene = document.createElement("div")
-    let pokeDiv = document.createElement("div");
-    let pokeFront = document.createElement("div");
-    let pokeBack = document.createElement("div");
-    let name = document.createElement("h3");
-    let pic = document.createElement("img");
-    let powers = document.createElement("p")
-    let height = document.createElement("p")
-    let weight = document.createElement("p")
-    let pokeId = document.createElement("p")
-    let forms = document.createElement("p")
+  let pokeScene = document.createElement("div");
+  let pokeDiv = document.createElement("div");
+  let pokeFront = document.createElement("div");
+  let pokeBack = document.createElement("div");
+  let name = document.createElement("h3");
+  let pic = document.createElement("img");
+  let powers = document.createElement("p");
+  let height = document.createElement("p");
+  let weight = document.createElement("p");
+  let pokeId = document.createElement("p");
+  let forms = document.createElement("p");
+  let hr = document.createElement("hr");
 
-    pokeScene.setAttribute('class', 'scene')
-    pokeDiv.setAttribute('class', 'card')
-    pokeFront.setAttribute('class', 'card__face card__face--front')
-    pokeBack.setAttribute('class', 'card__face card__face--back')
-    pic.setAttribute('class', 'picDivs')
-    /*height.setAttribute('class', 'details')
-    weight.setAttribute('class', 'details')
-    powers.setAttribute('class', 'details')*/
+  pokeScene.setAttribute("class", "scene");
+  pokeDiv.setAttribute("class", "card");
+  pokeFront.setAttribute("class", "card__face card__face--front");
+  pokeBack.setAttribute("class", "card__face card__face--back");
+  pic.setAttribute("class", "picDivs");
 
-    let pokeNum = getPokeNumber(single_pokemon.id)
+  let pokeNum = getPokeNumber(single_pokemon.id);
 
-    name.textContent = capitalize(`${single_pokemon.name}`)
-    height.textContent = `Height: ${single_pokemon.height}`
-    powers.textContent = `Abilities: ${single_pokemon.abilities[0].ability.name}`
-    weight.textContent = `Weight: ${single_pokemon.weight}`
-    pokeId.textContent = `ID: ${single_pokemon.id}`
-    forms.textContent = `Forms: ${capitalize(single_pokemon.forms[0].name)}`
+  name.textContent = capitalize(`${single_pokemon.name}`);
+  height.textContent = `Height: ${single_pokemon.height}`;
+  powers.textContent = `Abilities: ${capitalize(
+    single_pokemon.abilities[0].ability.name
+  )}`;
 
-    console.log(forms)
+  weight.textContent = `Weight: ${single_pokemon.weight}`;
+  pokeId.textContent = `ID: ${single_pokemon.id}`;
+  forms.textContent = `Forms: ${capitalize(single_pokemon.forms[0].name)}`;
 
-    pic.src = `../assets/images/${pokeNum}.png`
+  pic.src = `../assets/images/${pokeNum}.png`;
 
-    pokeFront.appendChild(pic)
-    pokeFront.appendChild(name)
-    pokeFront.appendChild(forms)
-    pokeFront.appendChild(pokeId)
+  pokeFront.appendChild(pic);
+  pokeFront.appendChild(hr);
+  pokeFront.appendChild(name);
+  pokeFront.appendChild(forms);
+  pokeFront.appendChild(pokeId);
 
-    pokeBack.appendChild(powers)
-    pokeBack.appendChild(height)
-    pokeBack.appendChild(weight)
+  pokeBack.appendChild(powers);
+  pokeBack.appendChild(height);
+  pokeBack.appendChild(weight);
 
-    pokeDiv.appendChild(pokeFront)
-    pokeDiv.appendChild(pokeBack)
-    pokeScene.appendChild(pokeDiv)
+  pokeDiv.appendChild(pokeFront);
+  pokeDiv.appendChild(pokeBack);
+  pokeScene.appendChild(pokeDiv);
 
-    mainArea.appendChild(pokeScene)
+  mainArea.appendChild(pokeScene);
 
-  pokeDiv.addEventListener('click', function() {
-    pokeDiv.classList.toggle('is-flipped');
+  pokeDiv.addEventListener("click", function() {
+    pokeDiv.classList.toggle("is-flipped");
   });
+
+  let type = single_pokemon.types[0].type.name
+
+  pokeDiv.onmouseover = function() {
+    this.setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 15px`)
+  }
+
+  pokeDiv.onmouseleave = function() {
+    this.setAttribute("style", `border: none`)
+  }
+}
+
+// CODE FOR CHECKING TYPE - https://codepen.io/IAmAlexJohnson/pen/zENWJG?editors=0010
+/*for (var i = 0; i < data.types.length; i++) {
+  var type = data.types[i].type.name;
+  types.push(type);
+}
+function pokemonType(types) {
+          $("#types").html("");
+          for (var i = 0; i < types.length; i++) {
+            $("#types").append(
+              "<div class='pokeType poke-info " +
+                types[i] +
+                "'>" +
+                types[i] +
+                " </div>"
+            );
+          }
+        }
+*/
+
+function color(type) {
+  if (type === "fire") {
+    return 'red'
+  }
+  else if (type === "flying") {
+    return 'blue'
+  }
+  else if (type === "bug") {
+    return 'green'
+  }
+  else if (type === "dark") {
+    return 'black'
+  }
+  else if (type === "dragon") {
+    return '#148DEB'
+  }
+  else if (type === "electric") {
+    return 'yellow'
+  }
+  else if (type === "fairy") {
+    return '#FF2D67'
+  }
+  else if (type === "fighting") {
+    return 'orange'
+  }
+  else if (type === "ghost") {
+    return '#541482'
+  }
+  else if (type === "grass") {
+    return 'light-green'
+  }
+  else if (type === "ground") {
+    return 'light-brown'
+  }
+  else if (type === "ice") {
+    return '#6CEDFF'
+  }
+  else if (type === "normal") {
+    return '#FFA292'
+  }
+  else if (type === "poison") {
+    return '#7025FF'
+  }
+  else if (type === "psychic") {
+    return '#FF1C79'
+  }
+  else if (type === "steel") {
+    return '#209E70'
+  }
+  else if (type === "water") {
+    return '#1742FF'
+  }
 }
 
 
