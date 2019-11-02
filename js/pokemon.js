@@ -4,6 +4,7 @@ let ul = document.createElement("ul")
 let home = document.createElement("li")
 let all = document.createElement("li")
 let type = document.createElement("li")
+let typeDrop = ["fire", "flying", "bug", "dark", "dragon", "electric", "fairy", "fighting", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"]
 
 home.textContent = "HOME"
 all.textContent = "ALL POKEMON"
@@ -13,8 +14,6 @@ ul.appendChild(home)
 ul.appendChild(all)
 ul.appendChild(type)
 nav.appendChild(ul)
-
-
 
 // Reusable async function to fetch data from url param in the function call
 async function getAPIData(url) {
@@ -26,6 +25,25 @@ async function getAPIData(url) {
     console.error(error);
   }
 }
+
+// setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 15px`)
+
+const arrInfo = (arr) => {
+  // let circle = document.createElement("div")
+  // circle.setAttribute("class", "circle")
+  // circle.setAttribute("style", `background-color: ${color(arr[0])};`)
+  // console.log(color(arr[0]))
+  console.log(arr)
+  text = "<ul>"
+  for (i = 0; i < arr.length; i++) {
+      // text += "<li>" + "<div>" + `${circle(arr[i])}` + "</div>" + arr[i] + "</li>" 
+      text += "<li>" + arr[i] + "</li>"
+  }
+  text += "</ul>"
+  return text
+}
+
+document.getElementById("types").innerHTML = arrInfo(typeDrop)
 
 // now, use the returned async data
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
@@ -62,6 +80,7 @@ function populateDOM(single_pokemon) {
   let weight = document.createElement("p");
   let pokeId = document.createElement("p");
   let forms = document.createElement("p");
+  // let type = document.createElement("p");
   let hr = document.createElement("hr");
 
   pokeScene.setAttribute("class", "scene");
@@ -77,6 +96,7 @@ function populateDOM(single_pokemon) {
   powers.textContent = `Abilities: ${capitalize(
     single_pokemon.abilities[0].ability.name
   )}`;
+  // type.textContent = `Types: ${pokemonType(single_pokemon)}`
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
@@ -85,10 +105,10 @@ function populateDOM(single_pokemon) {
   pic.src = `../assets/images/${pokeNum}.png`;
 
   pokeFront.appendChild(pic);
-  pokeFront.appendChild(hr);
   pokeFront.appendChild(name);
   pokeFront.appendChild(forms);
   pokeFront.appendChild(pokeId);
+  pokeFront.appendChild(hr);  
 
   pokeBack.appendChild(powers);
   pokeBack.appendChild(height);
@@ -115,6 +135,8 @@ function populateDOM(single_pokemon) {
   }
 }
 
+
+
 // CODE FOR CHECKING TYPE - https://codepen.io/IAmAlexJohnson/pen/zENWJG?editors=0010
 /*for (var i = 0; i < data.types.length; i++) {
   var type = data.types[i].type.name;
@@ -131,8 +153,8 @@ function pokemonType(types) {
                 " </div>"
             );
           }
-        }
-*/
+        }*/
+
 
 function color(type) {
   if (type === "fire") {

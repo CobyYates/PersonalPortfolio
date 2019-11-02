@@ -15,7 +15,7 @@ html {
 
 h3 {
   margin: 0;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 /* NAVIGATION */
@@ -60,6 +60,21 @@ header {
   height: 300px;
 }
 
+/* COLOR CIRCLES */
+#types ul  {
+  display: flex;
+  justify-content: space-around;
+}
+
+.circle {
+  height: 100px;
+  width: 100%;
+}
+
+#types ul li {
+  list-style-type: none;
+}
+
 /* MAIN / CARDS */
 main {
   display: grid;
@@ -92,7 +107,7 @@ main {
 
 hr {
   width: 80%;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   border: 3px solid #232323;
   border-radius: 5px;
 }
