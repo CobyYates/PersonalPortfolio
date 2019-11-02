@@ -11,9 +11,13 @@ all.textContent = "ALL POKEMON"
 type.textContent = "TYPES"
 
 ul.appendChild(home)
-ul.appendChild(all)
-ul.appendChild(type)
+// ul.appendChild(all)
+// ul.appendChild(type)
 nav.appendChild(ul)
+
+home.addEventListener("click", function(){
+  document.location.href = 'index.html';
+});
 
 // Reusable async function to fetch data from url param in the function call
 async function getAPIData(url) {
@@ -26,24 +30,15 @@ async function getAPIData(url) {
   }
 }
 
-// setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 15px`)
-
-const arrInfo = (arr) => {
-  // let circle = document.createElement("div")
-  // circle.setAttribute("class", "circle")
-  // circle.setAttribute("style", `background-color: ${color(arr[0])};`)
-  // console.log(color(arr[0]))
-  console.log(arr)
-  text = "<ul>"
-  for (i = 0; i < arr.length; i++) {
-      // text += "<li>" + "<div>" + `${circle(arr[i])}` + "</div>" + arr[i] + "</li>" 
-      text += "<li>" + arr[i] + "</li>"
-  }
-  text += "</ul>"
-  return text
+// To create and change the color of circles for types 
+var container = document.getElementById('types');
+for(var i = 0; i < typeDrop.length; i++){
+    container.innerHTML += ('<ul>' + '<li>' + '<div class="circle">' + '</div>'  + typeDrop[i] + '</li>' + '</ul>');
+    // document.getElementById("circle").style.backgroundColor = "lightblue";
+    // document.getElementById("circle").setAttribute("style", `background-color: ${color(type)};`)
+    // console.log(color(typeDrop[i]))
 }
 
-document.getElementById("types").innerHTML = arrInfo(typeDrop)
 
 // now, use the returned async data
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
@@ -136,7 +131,6 @@ function populateDOM(single_pokemon) {
 }
 
 
-
 // CODE FOR CHECKING TYPE - https://codepen.io/IAmAlexJohnson/pen/zENWJG?editors=0010
 /*for (var i = 0; i < data.types.length; i++) {
   var type = data.types[i].type.name;
@@ -202,8 +196,11 @@ function color(type) {
   else if (type === "psychic") {
     return '#FF1C79'
   }
-  else if (type === "steel") {
+  else if (type === "rock") {
     return '#209E70'
+  }
+  else if (type === "steel") {
+    return '#209E71'
   }
   else if (type === "water") {
     return '#1742FF'
@@ -211,6 +208,7 @@ function color(type) {
 }
 
 
-/* Add multiple abilities
+/* 
+Add multiple abilities
 Figure out best colors and designs for cards
 */
