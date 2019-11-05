@@ -34,9 +34,9 @@ async function getAPIData(url) {
 var container = document.getElementById('types');
 for(var i = 0; i < typeDrop.length; i++){
     container.innerHTML += ('<ul>' + '<li>' + '<div class="circle">' + '</div>'  + typeDrop[i] + '</li>' + '</ul>');
-    // document.getElementById("circle").style.backgroundColor = "lightblue";
-    // document.getElementById("circle").setAttribute("style", `background-color: ${color(type)};`)
-    // console.log(color(typeDrop[i]))
+    // document.getElementsByClassName("circle").style.backgroundColor = `${color(typeDrop[i])}`;
+    // document.getElementsByClassName("circle").setAttribute("style", `background-color: ${color(type)};`)
+    console.log(color(typeDrop[i]))
 }
 
 
