@@ -73,8 +73,10 @@ function populateDOM(single_pokemon) {
   let weight = document.createElement("p");
   let pokeId = document.createElement("p");
   let forms = document.createElement("p");
-  // let type = document.createElement("p");
   let hr = document.createElement("hr");
+
+  fillCardBack(pokeBack, single_pokemon)
+  fillCardFront(pokeBack, single_pokemon)
 
   pokeScene.setAttribute("class", "scene");
   pokeDiv.setAttribute("class", "card");
@@ -89,7 +91,6 @@ function populateDOM(single_pokemon) {
   powers.textContent = `Abilities: ${capitalize(
     single_pokemon.abilities[0].ability.name
   )}`;
-  // type.textContent = `Types: ${pokemonType(single_pokemon)}`
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
@@ -101,7 +102,7 @@ function populateDOM(single_pokemon) {
   pokeFront.appendChild(name);
   pokeFront.appendChild(forms);
   pokeFront.appendChild(pokeId);
-  pokeFront.appendChild(hr);  
+  pokeFront.appendChild(hr);
 
   pokeBack.appendChild(powers);
   pokeBack.appendChild(height);
@@ -126,6 +127,14 @@ function populateDOM(single_pokemon) {
   pokeDiv.onmouseleave = function() {
     this.setAttribute("style", `border: none`)
   }
+}
+
+function fillCardBack(pokeBack, data) {
+  // let poke
+}
+
+function fillCardFront(pokeFront, data){
+  //pic, name, etc
 }
 
 
