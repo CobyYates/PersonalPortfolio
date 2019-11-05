@@ -32,12 +32,10 @@ async function getAPIData(url) {
 
 // To create and change the color of circles for types 
 var container = document.getElementById('types');
-for(var i = 0; i < typeDrop.length; i++){
-    container.innerHTML += ('<ul>' + '<li>' + '<div class="circle">' + '</div>'  + typeDrop[i] + '</li>' + '</ul>');
-    // document.getElementsByClassName("circle").style.backgroundColor = `${color(typeDrop[i])}`;
-    // document.getElementsByClassName("circle").setAttribute("style", `background-color: ${color(type)};`)
+ for(var i = 0; i < typeDrop.length; i++){
+    container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(typeDrop[i])};"></div> ${typeDrop[i]} </li></ul>`
     console.log(color(typeDrop[i]))
-}
+} 
 
 
 // now, use the returned async data
