@@ -58,12 +58,21 @@ h3 {
 /* HEADER */
 header {
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* COLOR CIRCLES */
 #types  {
   display: flex;
   justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 #types ul li {
