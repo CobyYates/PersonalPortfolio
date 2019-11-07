@@ -186,10 +186,10 @@ function color(type) {
     return '#541482'
   }
   else if (type === "grass") {
-    return 'light-green'
+    return 'green'
   }
   else if (type === "ground") {
-    return 'light-brown'
+    return 'brown'
   }
   else if (type === "ice") {
     return '#6CEDFF'
