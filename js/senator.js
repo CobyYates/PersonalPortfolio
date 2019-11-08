@@ -9,7 +9,6 @@ async function getAPIData(url) {
 }
 
 let allSenators = [];
-
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
   populateDOM(allSenators);
@@ -93,14 +92,37 @@ function cardContent(senator) {
     content.textContent = `Seniority: ${senator.seniority}
 Senate Class: ${senator.senate_class}
 Next Election: ${senator.next_election}`
-    console.log(content.textContent)
+
+    let votes = document.createElement("div");
+    votes.setAttribute("class", "votes");
+
+    let votesTitle = document.createElement("h3")    
+    votesTitle.setAttribute("class", "title is-4");
+    votesTitle.textContent = `Votes`
+
+    let totalVotes = document.createElement("p")
+    totalVotes.textContent = `Total: ${senator.total_votes}`
+
+    let missedVotes = document.createElement("p")
+    missedVotes.textContent = `Missed: ${senator.missed_votes}`
+
+    let totalPresent = document.createElement("p")
+    totalPresent.textContent = `Present: ${senator.total_votes}`
 
     mediaContent.appendChild(titleP);
     mediaContent.appendChild(subTitleP);
     figure.appendChild(party);
     mediaLeft.appendChild(figure);
     media.appendChild(mediaLeft);
+
     media.appendChild(mediaContent);
+    content.appendChild(votesTitle);
+    content.appendChild(votes);
+    votes.appendChild(totalVotes);
+    votes.appendChild(missedVotes);
+    votes.appendChild(totalPresent);
+
+
     cardContent.appendChild(media);
     cardContent.appendChild(content);
 

@@ -27,3 +27,8 @@
 .independent {
     background-color: #4c516d;
 }
+
+.votes {
+    /* display: flex;
+    justify-content: space-between; */
+}

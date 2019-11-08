@@ -129,15 +129,6 @@ function populateDOM(single_pokemon) {
   }
 }
 
-function fillCardBack(pokeBack, data) {
-  // let poke
-}
-
-function fillCardFront(pokeFront, data){
-  //pic, name, etc
-}
-
-
 // CODE FOR CHECKING TYPE - https://codepen.io/IAmAlexJohnson/pen/zENWJG?editors=0010
 /*for (var i = 0; i < data.types.length; i++) {
   var type = data.types[i].type.name;
