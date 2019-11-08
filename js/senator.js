@@ -86,7 +86,14 @@ function cardContent(senator) {
     
     let subTitleP = document.createElement("p");
     subTitleP.setAttribute("class", "subtitle is-6");
-    subTitleP.textContent = `test`
+    subTitleP.textContent = senator.title
+
+    let content = document.createElement("div");
+    content.setAttribute("class", "content");
+    content.textContent = `Seniority: ${senator.seniority}
+Senate Class: ${senator.senate_class}
+Next Election: ${senator.next_election}`
+    console.log(content.textContent)
 
     mediaContent.appendChild(titleP);
     mediaContent.appendChild(subTitleP);
@@ -95,6 +102,7 @@ function cardContent(senator) {
     media.appendChild(mediaLeft);
     media.appendChild(mediaContent);
     cardContent.appendChild(media);
+    cardContent.appendChild(content);
 
     return cardContent
 }
