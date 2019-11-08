@@ -49,13 +49,13 @@ function populateDOM(senator_arr) {
 
 function cardContent(senator) {
     let cardContent = document.createElement("div");
-    cardContent.setAttribute("class", "card-content");
+    cardContent.setAttribute("class", "card-content has-background-grey-darker has-text-white");
 
     let media = document.createElement("div");
     media.setAttribute("class", "media");
 
     let mediaLeft = document.createElement("div");
-    mediaLeft.setAttribute("class", "media-left");
+    mediaLeft.setAttribute("class", "media-left ");
 
     let figure = document.createElement("div");
     figure.setAttribute("class", "image is-48x48");
@@ -79,13 +79,12 @@ function cardContent(senator) {
     mediaContent.setAttribute("class", "media-content");
 
     let titleP = document.createElement("p");
-    titleP.setAttribute("class", "title is-4");
-    titleP.textContent = `${senator.first_name}
-    ${senator.last_name}`
+    titleP.setAttribute("class", "title is-4 has-text-white");
+    titleP.textContent = senator.first_name + " " + senator.last_name
     
     let subTitleP = document.createElement("p");
-    subTitleP.setAttribute("class", "subtitle is-6");
-    subTitleP.textContent = senator.title
+    subTitleP.setAttribute("class", "subtitle is-6 has-text-white");
+    subTitleP.textContent = `${senator.title}, ${senator.state}` 
 
     let content = document.createElement("div");
     content.setAttribute("class", "content");
@@ -94,10 +93,10 @@ Senate Class: ${senator.senate_class}
 Next Election: ${senator.next_election}`
 
     let votes = document.createElement("div");
-    votes.setAttribute("class", "votes");
+    votes.setAttribute("class", "votes is-flex");
 
     let votesTitle = document.createElement("h3")    
-    votesTitle.setAttribute("class", "title is-4");
+    votesTitle.setAttribute("class", "title is-4 has-text-white");
     votesTitle.textContent = `Votes`
 
     let totalVotes = document.createElement("p")
@@ -128,3 +127,30 @@ Next Election: ${senator.next_election}`
 
     return cardContent
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});
+
