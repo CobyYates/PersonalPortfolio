@@ -1,13 +1,29 @@
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 3rem;
-    row-gap: 7rem;
+    row-gap: 4rem;
     margin: 150px auto;
     margin-bottom: 6rem;
     max-width: 70%;
 }
 
-.party {
+.partyColor {
+    height: 100%;
+    width: 100%;
     font-size: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.democrat {
+    background-color: #0015BC;
+}
+
+.republican {
+    background-color: #983D3D;
+}
+
+.independent {
+    background-color: #4c516d;
 }

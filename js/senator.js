@@ -12,7 +12,6 @@ let allSenators = [];
 
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
-//   console.log(allSenators);
   populateDOM(allSenators);
 });
 
@@ -27,7 +26,7 @@ function populateDOM(senator_arr) {
     cardImage.setAttribute("class", "card-image");
 
     let figure = document.createElement("figure");
-    figure.setAttribute("class", "image is-4by3");
+    figure.setAttribute("class", "image is-4by4");
 
     let figureImage = document.createElement("img");
     figureImage.src = `https://www.congress.gov/img/member/${senator.id.toLowerCase()}_200.jpg`;
@@ -39,6 +38,12 @@ function populateDOM(senator_arr) {
     card.appendChild(cardImage);
     card.appendChild(cardContent(senator))
     container.appendChild(card);
+
+    figureImage.addEventListener('error', (event) => {
+      let badImage = event.target
+      badImage.src = '../assets/images/doug jones.jpg'
+    })
+
   });
 }
 
@@ -53,19 +58,23 @@ function cardContent(senator) {
     let mediaLeft = document.createElement("div");
     mediaLeft.setAttribute("class", "media-left");
 
-    let figure = document.createElement("figure");
+    let figure = document.createElement("div");
     figure.setAttribute("class", "image is-48x48");
 
     let party = document.createElement("div");
-    party.setAttribute("class", "party")
-    party.textContent = `${senator.party}`
-    //change the background color depending on party
-    var container = document.getElementById('party');
-    for(var i = 0; i < senator.length; i++){
-        container.innerHTML += `<ul> <li> <div style="background-color: ${color(senator[i])};"></div> ${typeDrop[i]} </li></ul>`
-    }  
-    console.log(color(senator.party))
-
+    party.textContent = senator.party
+    //party colors
+    if (senator.party === "R") {
+      party.setAttribute("class", "republican partyColor")
+      console.log(senator.party)
+    }
+    else if (senator.party === "D") {
+      party.setAttribute("class", "democrat partyColor")
+      console.log(senator.party)
+    }
+    else {
+      party.setAttribute("class", "independent partyColor")
+    }
 
     let mediaContent = document.createElement("div");
     mediaContent.setAttribute("class", "media-content");
@@ -88,16 +97,4 @@ function cardContent(senator) {
     cardContent.appendChild(media);
 
     return cardContent
-}
-
-function color(party) {
-    if (party === "R") {
-      return 'red'
-    }
-    else if (party === "D") {
-        return 'blue'
-    }
-    else {
-        return 'green'
-    }
 }
