@@ -12,7 +12,7 @@ let allSenators = [];
 
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
-  console.log(allSenators);
+//   console.log(allSenators);
   populateDOM(allSenators);
 });
 
@@ -56,24 +56,32 @@ function cardContent(senator) {
     let figure = document.createElement("figure");
     figure.setAttribute("class", "image is-48x48");
 
-    let img = document.createElement("img");
-    img.src = ``
-    img.alt = 'Placeholder Image'
+    let party = document.createElement("div");
+    party.setAttribute("class", "party")
+    party.textContent = `${senator.party}`
+    //change the background color depending on party
+    var container = document.getElementById('party');
+    for(var i = 0; i < senator.length; i++){
+        container.innerHTML += `<ul> <li> <div style="background-color: ${color(senator[i])};"></div> ${typeDrop[i]} </li></ul>`
+    }  
+    console.log(color(senator.party))
+
 
     let mediaContent = document.createElement("div");
     mediaContent.setAttribute("class", "media-content");
 
     let titleP = document.createElement("p");
     titleP.setAttribute("class", "title is-4");
-    titleP.textContent = `foo`
+    titleP.textContent = `${senator.first_name}
+    ${senator.last_name}`
     
     let subTitleP = document.createElement("p");
     subTitleP.setAttribute("class", "subtitle is-6");
-    subTitleP.textContent = 'bar'
+    subTitleP.textContent = `test`
 
     mediaContent.appendChild(titleP);
     mediaContent.appendChild(subTitleP);
-    figure.appendChild(img);
+    figure.appendChild(party);
     mediaLeft.appendChild(figure);
     media.appendChild(mediaLeft);
     media.appendChild(mediaContent);
@@ -82,10 +90,14 @@ function cardContent(senator) {
     return cardContent
 }
 
-/*let mainArea = document.querySelector('main')
-  let mainButton = document.createElement('button')
-  mainButton.textContent = 'Button'
-  mainArea.appendChild(mainButton)
-  mainButton.addEventListener('click', function() {
-    console.log(allSenators)
-  })*/
+function color(party) {
+    if (party === "R") {
+      return 'red'
+    }
+    else if (party === "D") {
+        return 'blue'
+    }
+    else {
+        return 'green'
+    }
+}
