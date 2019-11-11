@@ -75,8 +75,6 @@ function populateDOM(single_pokemon) {
   let forms = document.createElement("p");
   let hr = document.createElement("hr");
 
-  fillCardBack(pokeBack, single_pokemon)
-  fillCardFront(pokeBack, single_pokemon)
 
   pokeScene.setAttribute("class", "scene");
   pokeDiv.setAttribute("class", "card");
