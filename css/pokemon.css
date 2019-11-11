@@ -128,9 +128,6 @@ hr {
   border-radius: 5px;
 }
 
-.card:hover {
-  border-radius: 10px;
-}
 
 .card img {
   width: 80%;

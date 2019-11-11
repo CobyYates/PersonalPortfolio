@@ -79,7 +79,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: black;
     background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
 }
@@ -170,7 +170,7 @@ body {
 .favorites {
     background-color: var(--green);
     text-align: center;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .favorites h2 {
@@ -190,10 +190,6 @@ body {
 
 .box img {
     width: 200px;
-}
-
-.pulse {
-
 }
 
 .favorites .box {

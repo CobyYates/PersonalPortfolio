@@ -11,8 +11,6 @@ all.textContent = "ALL POKEMON"
 type.textContent = "TYPES"
 
 ul.appendChild(home)
-// ul.appendChild(all)
-// ul.appendChild(type)
 nav.appendChild(ul)
 
 home.addEventListener("click", function(){
@@ -119,32 +117,13 @@ function populateDOM(single_pokemon) {
   let type = single_pokemon.types[0].type.name
 
   pokeDiv.onmouseover = function() {
-    this.setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 15px`)
+    this.setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 7px`)
   }
 
   pokeDiv.onmouseleave = function() {
     this.setAttribute("style", `border: none`)
   }
 }
-
-// CODE FOR CHECKING TYPE - https://codepen.io/IAmAlexJohnson/pen/zENWJG?editors=0010
-/*for (var i = 0; i < data.types.length; i++) {
-  var type = data.types[i].type.name;
-  types.push(type);
-}
-function pokemonType(types) {
-          $("#types").html("");
-          for (var i = 0; i < types.length; i++) {
-            $("#types").append(
-              "<div class='pokeType poke-info " +
-                types[i] +
-                "'>" +
-                types[i] +
-                " </div>"
-            );
-          }
-        }*/
-
 
 function color(type) {
   if (type === "fire") {
