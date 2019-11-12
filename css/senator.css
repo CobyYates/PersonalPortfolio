@@ -1,5 +1,5 @@
-nav {
-    padding-bottom: 100px;
+h1 {
+    text-align: center;
 }
 
 .container {
@@ -10,6 +10,15 @@ nav {
     margin: 150px auto;
     margin-bottom: 6rem;
     max-width: 70%;
+}
+
+.hero {
+    background: url(../assets/images/flag.jpeg) fixed center;
+    height: 400px;
+    padding-bottom: 100px;
+}
+
+.hero img {
 }
 
 .partyColor {
