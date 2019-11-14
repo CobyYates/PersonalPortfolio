@@ -6,6 +6,22 @@ let all = document.createElement("li")
 let type = document.createElement("li")
 let typeDrop = ["fire", "flying", "bug", "dark", "dragon", "electric", "fairy", "fighting", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"]
 
+
+class Pokemon {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+    
+  }
+ }
+
+const Cobermon = new Pokemon(800, 'Cobermon');
+
+const newButton = document.querySelector('#newCard')
+newButton.addEventListener('click', function() {
+  populateDOM(Cobermon)
+})
+
 home.textContent = "HOME"
 all.textContent = "ALL POKEMON"
 type.textContent = "TYPES"
@@ -42,6 +58,7 @@ const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
     getAPIData(pokemon.url).then(pokeData => {
       populateDOM(pokeData);
     });
+    // populateDOM(Cobermon)
   }
 });
 
@@ -186,4 +203,5 @@ function color(type) {
 /* 
 Add multiple abilities
 Figure out best colors and designs for cards
+Add Base HP from video
 */

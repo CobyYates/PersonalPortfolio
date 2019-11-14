@@ -20,14 +20,17 @@ let allSenators = [];
 let simpleSenators = [];
 let republicans = [];
 let democrats = [];
+let independents = []
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
   simpleSenators = simpleMap(allSenators);
   republicans = simpleFilter(simpleSenators, 'R');
   democrats = simpleFilter(simpleSenators, 'D');
+  independents = simpleFilter(simpleSenators, 'ID');
   console.log(totalVotes(simpleSenators));
   heroContent(democrats)
-  console.log(democrats)
+  console.log(oldestSenator(simpleSenators))
+  console.log(sortSenatorsByAge(simpleSenators))  //Swtiching these changes the order of the senators
   populateDOM(simpleSenators);
 });
 
@@ -54,10 +57,10 @@ function simpleMap(arr) {
   return results;
 }
 
-// FILTER
+// FILTER - 
 function simpleFilter(arr, partyType) {
   return arr.filter(senator => {
-    senator.party === partyType;
+    senator.party === "partyType";
   });
 }
 
@@ -74,6 +77,20 @@ function totalVotes(senatorList) {
 }
 
 console.log(testReduce);
+
+function oldestSenator(senatorList) {
+  const results = senatorList.reduce((oldest, senator) => {
+    return (oldest.age || 0) > senator.age ? oldest : senator
+  }, {})
+  return results
+}
+
+function sortSenatorsByAge(senatorList) {
+  return senatorList.sort((a, b) => {
+    return a.age - b.age
+  })
+}
+
 
 const hero = document.querySelector(".hero");
 
