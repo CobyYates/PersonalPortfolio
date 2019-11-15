@@ -1,36 +1,58 @@
 // Navigation
 let nav = document.querySelector("nav");
-let ul = document.createElement("ul")
-let home = document.createElement("li")
-let all = document.createElement("li")
-let type = document.createElement("li")
-let typeDrop = ["fire", "flying", "bug", "dark", "dragon", "electric", "fairy", "fighting", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"]
-
+let ul = document.createElement("ul");
+let home = document.createElement("li");
+let all = document.createElement("li");
+let type = document.createElement("li");
+let typeDrop = [
+  "fire",
+  "flying",
+  "bug",
+  "dark",
+  "dragon",
+  "electric",
+  "fairy",
+  "fighting",
+  "ghost",
+  "grass",
+  "ground",
+  "ice",
+  "normal",
+  "poison",
+  "psychic",
+  "rock",
+  "steel",
+  "water"
+];
 
 class Pokemon {
-  constructor(id, name) {
+  constructor(id, name, forms, height, weight, abilities, types) {
     this.id = id;
     this.name = name;
-    
+    this.forms = forms;
+    this.height = height;
+    this.weight = weight;
+    this.abilities = abilities
+    this.types = types
   }
- }
+}
+const Cobermon = new Pokemon(800, "Cobermon", [{name: "Rage"}], 6, 250, abilities = [{ability: {name: "fight"}}], [{type: {name: "fire"}}]);
+console.log(Cobermon)
 
-const Cobermon = new Pokemon(800, 'Cobermon');
+const newButton = document.querySelector("#newCard");
+newButton.addEventListener("click", function() {
+  populateDOM(Cobermon);
+});
 
-const newButton = document.querySelector('#newCard')
-newButton.addEventListener('click', function() {
-  populateDOM(Cobermon)
-})
+home.textContent = "HOME";
+all.textContent = "ALL POKEMON";
+type.textContent = "TYPES";
 
-home.textContent = "HOME"
-all.textContent = "ALL POKEMON"
-type.textContent = "TYPES"
+ul.appendChild(home);
+nav.appendChild(ul);
 
-ul.appendChild(home)
-nav.appendChild(ul)
-
-home.addEventListener("click", function(){
-  document.location.href = 'index.html';
+home.addEventListener("click", function() {
+  document.location.href = "index.html";
 });
 
 // Reusable async function to fetch data from url param in the function call
@@ -44,27 +66,28 @@ async function getAPIData(url) {
   }
 }
 
-// To create and change the color of circles for types 
-var container = document.getElementById('types');
- for(var i = 0; i < typeDrop.length; i++){
-    container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(typeDrop[i])};"></div> ${typeDrop[i]} </li></ul>`
-    console.log(color(typeDrop[i]))
-} 
-
+// To create and change the color of circles for types
+var container = document.getElementById("types");
+for (var i = 0; i < typeDrop.length; i++) {
+  container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(
+    typeDrop[i]
+  )};"></div> ${typeDrop[i]} </li></ul>`;
+  // console.log(color(typeDrop[i]));
+}
 
 // now, use the returned async data
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
       populateDOM(pokeData);
+      console.log(pokeData)
     });
-    // populateDOM(Cobermon)
   }
 });
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s[0].toUpperCase() + s.slice(1);
 };
 
 let mainArea = document.querySelector("main");
@@ -90,7 +113,6 @@ function populateDOM(single_pokemon) {
   let forms = document.createElement("p");
   let hr = document.createElement("hr");
 
-
   pokeScene.setAttribute("class", "scene");
   pokeDiv.setAttribute("class", "card");
   pokeFront.setAttribute("class", "card__face card__face--front");
@@ -101,9 +123,7 @@ function populateDOM(single_pokemon) {
 
   name.textContent = capitalize(`${single_pokemon.name}`);
   height.textContent = `Height: ${single_pokemon.height}`;
-  powers.textContent = `Abilities: ${capitalize(
-    single_pokemon.abilities[0].ability.name
-  )}`;
+  powers.textContent = `Abilities: ${capitalize(single_pokemon.abilities[0].ability.name)}`;
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
@@ -131,74 +151,59 @@ function populateDOM(single_pokemon) {
     pokeDiv.classList.toggle("is-flipped");
   });
 
-  let type = single_pokemon.types[0].type.name
+  let type = single_pokemon.types[0].type.name;
 
   pokeDiv.onmouseover = function() {
-    this.setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 7px`)
-  }
+    this.setAttribute(
+      "style",
+      `border: 3px solid ${color(type)}; border-radius: 7px`
+    );
+  };
 
   pokeDiv.onmouseleave = function() {
-    this.setAttribute("style", `border: none`)
-  }
+    this.setAttribute("style", `border: none`);
+  };
 }
 
 function color(type) {
   if (type === "fire") {
-    return 'red'
-  }
-  else if (type === "flying") {
-    return 'blue'
-  }
-  else if (type === "bug") {
-    return 'green'
-  }
-  else if (type === "dark") {
-    return 'black'
-  }
-  else if (type === "dragon") {
-    return '#148DEB'
-  }
-  else if (type === "electric") {
-    return 'yellow'
-  }
-  else if (type === "fairy") {
-    return '#FF2D67'
-  }
-  else if (type === "fighting") {
-    return 'orange'
-  }
-  else if (type === "ghost") {
-    return '#541482'
-  }
-  else if (type === "grass") {
-    return 'green'
-  }
-  else if (type === "ground") {
-    return 'brown'
-  }
-  else if (type === "ice") {
-    return '#6CEDFF'
-  }
-  else if (type === "normal") {
-    return '#FFA292'
-  }
-  else if (type === "poison") {
-    return '#7025FF'
-  }
-  else if (type === "psychic") {
-    return '#FF1C79'
-  }
-  else if (type === "rock") {
-    return '#209E70'
-  }
-  else if (type === "steel") {
-    return '#209E71'
-  }
-  else if (type === "water") {
-    return '#1742FF'
+    return "red";
+  } else if (type === "flying") {
+    return "blue";
+  } else if (type === "bug") {
+    return "green";
+  } else if (type === "dark") {
+    return "black";
+  } else if (type === "dragon") {
+    return "#148DEB";
+  } else if (type === "electric") {
+    return "yellow";
+  } else if (type === "fairy") {
+    return "#FF2D67";
+  } else if (type === "fighting") {
+    return "orange";
+  } else if (type === "ghost") {
+    return "#541482";
+  } else if (type === "grass") {
+    return "green";
+  } else if (type === "ground") {
+    return "brown";
+  } else if (type === "ice") {
+    return "#6CEDFF";
+  } else if (type === "normal") {
+    return "#FFA292";
+  } else if (type === "poison") {
+    return "#7025FF";
+  } else if (type === "psychic") {
+    return "#FF1C79";
+  } else if (type === "rock") {
+    return "#209E70";
+  } else if (type === "steel") {
+    return "#209E71";
+  } else if (type === "water") {
+    return "#1742FF";
   }
 }
-
 
 /* 
 Add multiple abilities
