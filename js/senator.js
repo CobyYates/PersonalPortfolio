@@ -28,10 +28,10 @@ const theData = getAPIData("senators.json").then(data => {
   republicans = simpleFilter(simpleSenators, "R");
   democrats = simpleFilter(simpleSenators, "D");
   independents = simpleFilter(simpleSenators, "ID");
-  heroContent("Republicans", republicans, length)
-  heroContent("Democrats", democrats, length)
-  heroContent("Independents", independents, length)
-  heroContent("Oldest Senator", oldestSenator(simpleSenators.name), name)
+  heroContent("Republicans", republicans.length)
+  heroContent("Democrats", democrats.length)
+  heroContent("Independents", independents.length)
+  heroContent("Oldest Senator", oldestSenator(simpleSenators).name)
   // console.log(totalVotes(simpleSenators));
   // console.log(republicans)
   // console.log(oldestSenator(simpleSenators))
@@ -92,14 +92,26 @@ function sortSenatorsByAge(senatorList) {
 }
 
 
-const hero = document.querySelector(".hero");
+const hero = document.querySelector(".hero-body");
 
 function heroContent(name, arr) {
-    let statDiv = document.createElement("div")
-    statDiv.setAttribute("class", "stat")
-    statDiv.textContent = `${name} ${arr.length}`
-    console.log(arr.length)
-    hero.appendChild(statDiv)
+  let level_item = document.createElement("div")
+  level_item.setAttribute("class", "level-item has-text-centered")
+
+  let secondDiv = document.createElement("div")
+  
+  let heading = document.createElement("p")
+  heading.setAttribute("class", "heading")
+  heading.textContent = name
+
+  let title = document.createElement("p")
+  title.setAttribute("class", "title")
+  title.textContent = arr
+
+  secondDiv.appendChild(heading)
+  secondDiv.appendChild(title)
+  level_item.appendChild(secondDiv)
+  hero.appendChild(level_item)
 }
 
 

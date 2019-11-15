@@ -3,6 +3,15 @@
 This is the home for Coby Yates' Personal Portfolio
 Started Fall Semester 2019
 
+[Portfolio Netlify Link](https://cobyyates.netlify.com/)
+
+[Personal Interests Netlify Link](https://coberspersonalinterests.netlify.com/)
+
+[Star Wars Netlify Link](https://cobyyates.netlify.com/starwars.html)
+
+[Senators Netlify Link](https://cobyyates.netlify.com/pokemon.html)
+
+[Baseball Cards Netlify Link](https://cobyyates.netlify.com/senator.html)
 # Requirements
 
 ## Basic JavaScript
@@ -38,6 +47,10 @@ function color(type) {
 
 ### Proper use of String manipulation
 ```JavaScript
+const capitalize = s => {
+  if (typeof s !== "string") return "";
+  return s[0].toUpperCase() + s.slice(1);
+};
 ```
 
 ### Good use of Arrays
@@ -56,7 +69,8 @@ var container = document.getElementById('types');
 ```
 ### Use of custom JavaScript objects
 ```JavaScript
-
+const Cobermon = new Pokemon( 800, "Cobermon", [{ name: "Rage" }], 6, 250, 
+(abilities = [{ ability: { name: "fight" } }]), [{ type: { name: "fire" } }]);
 ```
 
 ## Use of ES6
@@ -80,7 +94,8 @@ this.setAttribute("style", `border: 3px solid ${color(type)}; border-radius: 15p
 
 ### Proper declarations of Objects
 ```JavaScript
-
+const Cobermon = new Pokemon( 800, "Cobermon", [{ name: "Rage" }], 6, 250, 
+(abilities = [{ ability: { name: "fight" } }]), [{ type: { name: "fire" } }]);
 ```
 
 ### Use of Import and Export statements
@@ -107,13 +122,14 @@ import { vehicles } from "./vehicles.js";
 ```
 ### Use of Objects with key-value pairs
 ```JavaScript
-
+const Cobermon = new Pokemon( 800, "Cobermon", [{ name: "Rage" }], 6, 250, 
+(abilities = [{ ability: { name: "fight" } }]), [{ type: { name: "fire" } }]);
 ```
 ### Iteration through an Array using loops and Array methods
 ```JavaScript
 
 ```
-## Demonstrates us of Object Oriented Programming techniques including:
+## Demonstrates use of Object Oriented Programming techniques including:
 ### Objects with properties and methods accessed using dot notation
 ```JavaScript
 

@@ -3,7 +3,8 @@ TO DO
 -Filtering by type colors on top
 - Add button effects
 - Add multiple types/abilities (google how to do for loop through object prop)
-*/ 
+*/
+
 // Navigation
 let nav = document.querySelector("nav");
 let ul = document.createElement("ul");
@@ -52,27 +53,6 @@ const Cobermon = new Pokemon(
   [{ type: { name: "fire" } }]
 );
 
-
-function addButton() {
-  let add = document.createElement("button");
-  add.setAttribute("class", "scene btn");
-  // add.textContent = font;
-  mainArea.appendChild(add);
-
-  add.addEventListener("click", function() {
-    populateDOM(Cobermon);
-  });
-
-  add.onmouseover = function() {
-    this.setAttribute(
-      "style", `background-color: #555;`);
-  };
-
-  add.onmouseleave = function() {
-    this.setAttribute("style", `border: none`);
-  };
-}
-
 home.textContent = "HOME";
 all.textContent = "ALL POKEMON";
 type.textContent = "TYPES";
@@ -105,15 +85,18 @@ for (var i = 0; i < typeDrop.length; i++) {
 
 // now, use the returned async data
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
-  addButton();
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
+      simpleFilter(pokeData)
+      console.log(pokeData)
       populateDOM(pokeData);
     });
   }
 });
 
-const theData2 = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20").then(data => {
+const theData2 = getAPIData(
+  "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20"
+).then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData2 => {
       populateDOM(pokeData2);
@@ -135,12 +118,21 @@ function getPokeNumber(id) {
   } else return id;
 }
 
+/*let testing = document.querySelector("#test");
+function simpleFilter(pokeList) {
+  testing.addEventListener("click", () => {
+    // console.log(pokeList.name.filter(name => types.type.name === "fire"));
+  });
+}*/
+
+addButton();
+
 function populateDOM(single_pokemon) {
   let pokeScene = document.createElement("div");
   let pokeDiv = document.createElement("div");
   let pokeFront = document.createElement("div");
   let pokeBack = document.createElement("div");
-  let name = document.createElement("h3");
+  let name = document.createElement("h2");
   let pic = document.createElement("img");
   let powers = document.createElement("p");
   let height = document.createElement("p");
@@ -199,6 +191,24 @@ function populateDOM(single_pokemon) {
   };
 
   pokeDiv.onmouseleave = function() {
+    this.setAttribute("style", `border: none`);
+  };
+}
+
+function addButton() {
+  let add = document.createElement("button");
+  add.setAttribute("class", "scene btn");
+  mainArea.appendChild(add);
+
+  add.addEventListener("click", function() {
+    populateDOM(Cobermon);
+  });
+
+  add.onmouseover = function() {
+    this.setAttribute("style", `background-color: #555;`);
+  };
+
+  add.onmouseleave = function() {
     this.setAttribute("style", `border: none`);
   };
 }
