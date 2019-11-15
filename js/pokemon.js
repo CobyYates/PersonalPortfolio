@@ -2,6 +2,7 @@
 TO DO
 -Filtering by type colors on top
 - Add button effects
+- Add multiple types/abilities (google how to do for loop through object prop)
 */ 
 // Navigation
 let nav = document.querySelector("nav");

@@ -21,17 +21,21 @@ let simpleSenators = [];
 let republicans = [];
 let democrats = [];
 let independents = []
+
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
   simpleSenators = simpleMap(allSenators);
   republicans = simpleFilter(simpleSenators, "R");
   democrats = simpleFilter(simpleSenators, "D");
   independents = simpleFilter(simpleSenators, "ID");
+  heroContent("Republicans", republicans, length)
+  heroContent("Democrats", democrats, length)
+  heroContent("Independents", independents, length)
+  heroContent("Oldest Senator", oldestSenator(simpleSenators.name), name)
   // console.log(totalVotes(simpleSenators));
   // console.log(republicans)
   // console.log(oldestSenator(simpleSenators))
   //console.log(sortSenatorsByAge(simpleSenators))  //Swtiching these changes the order of the senators
-  heroContent(republicans)
   populateDOM(simpleSenators);
 });
 
@@ -50,7 +54,6 @@ function simpleMap(arr) {
         Senate Class: ${senator.senate_class}
         Next Election: ${senator.next_election}`,
       missed: senator.missed_votes,
-      // present: senator.total_present, not needed
       // You can use code from journal for star wars pilot to find highest percentage
       // party_votes: votes_with_party_pct
     };
@@ -91,16 +94,12 @@ function sortSenatorsByAge(senatorList) {
 
 const hero = document.querySelector(".hero");
 
-function heroContent(arr) {
-  arr.forEach(senator => {
+function heroContent(name, arr) {
     let statDiv = document.createElement("div")
     statDiv.setAttribute("class", "stat")
-    statDiv.textContent = senator
-
-    console.log(senator)
-
+    statDiv.textContent = `${name} ${arr.length}`
+    console.log(arr.length)
     hero.appendChild(statDiv)
-  })
 }
 
 
