@@ -24,13 +24,14 @@ let independents = []
 const theData = getAPIData("senators.json").then(data => {
   allSenators = data.results[0].members;
   simpleSenators = simpleMap(allSenators);
-  republicans = simpleFilter(simpleSenators, 'R');
-  democrats = simpleFilter(simpleSenators, 'D');
-  independents = simpleFilter(simpleSenators, 'ID');
-  console.log(totalVotes(simpleSenators));
-  heroContent(democrats)
-  console.log(oldestSenator(simpleSenators))
-  console.log(sortSenatorsByAge(simpleSenators))  //Swtiching these changes the order of the senators
+  republicans = simpleFilter(simpleSenators, "R");
+  democrats = simpleFilter(simpleSenators, "D");
+  independents = simpleFilter(simpleSenators, "ID");
+  // console.log(totalVotes(simpleSenators));
+  // console.log(republicans)
+  // console.log(oldestSenator(simpleSenators))
+  //console.log(sortSenatorsByAge(simpleSenators))  //Swtiching these changes the order of the senators
+  heroContent(republicans)
   populateDOM(simpleSenators);
 });
 
@@ -58,10 +59,8 @@ function simpleMap(arr) {
 }
 
 // FILTER - 
-function simpleFilter(arr, partyType) {
-  return arr.filter(senator => {
-    senator.party === "partyType";
-  });
+function simpleFilter(simpleList, partyType) {
+  return simpleList.filter(senator => senator.party === partyType );
 }
 
 const testArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
@@ -75,8 +74,6 @@ function totalVotes(senatorList) {
   }, 0);
   return results;
 }
-
-console.log(testReduce);
 
 function oldestSenator(senatorList) {
   const results = senatorList.reduce((oldest, senator) => {
@@ -94,8 +91,16 @@ function sortSenatorsByAge(senatorList) {
 
 const hero = document.querySelector(".hero");
 
-function heroContent(senator) {
-  console.log(senator)
+function heroContent(arr) {
+  arr.forEach(senator => {
+    let statDiv = document.createElement("div")
+    statDiv.setAttribute("class", "stat")
+    statDiv.textContent = senator
+
+    console.log(senator)
+
+    hero.appendChild(statDiv)
+  })
 }
 
 
@@ -182,8 +187,8 @@ function cardContent(senator) {
   votesTitle.setAttribute("class", "title is-4 has-text-white");
   votesTitle.textContent = `-Votes-`;
 
-  let totalVotes = document.createElement("p");
-  totalVotes.textContent = `Total: ${senator.total_votes}`;
+  // let totalVotes = document.createElement("p");
+  // totalVotes.textContent = `Total: ${senator.total_votes}`;
 
   let missedVotes = document.createElement("p");
   missedVotes.textContent = `Missed: ${senator.missed}`;
@@ -201,10 +206,10 @@ function cardContent(senator) {
   media.appendChild(mediaLeft);
 
   media.appendChild(mediaContent);
-  content.appendChild(votesTitle);
-  content.appendChild(votes);
-  votes.appendChild(totalVotes);
-  votes.appendChild(missedVotes);
+  // content.appendChild(votesTitle);
+  // content.appendChild(votes);
+  // votes.appendChild(totalVotes);
+  // votes.appendChild(missedVotes);
   // votes.appendChild(totalPresent);
   content.appendChild(age);
 
