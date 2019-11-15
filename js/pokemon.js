@@ -1,3 +1,8 @@
+/*
+TO DO
+-Filtering by type colors on top
+- Add button effects
+*/ 
 // Navigation
 let nav = document.querySelector("nav");
 let ul = document.createElement("ul");
@@ -32,17 +37,40 @@ class Pokemon {
     this.forms = forms;
     this.height = height;
     this.weight = weight;
-    this.abilities = abilities
-    this.types = types
+    this.abilities = abilities;
+    this.types = types;
   }
 }
-const Cobermon = new Pokemon(800, "Cobermon", [{name: "Rage"}], 6, 250, abilities = [{ability: {name: "fight"}}], [{type: {name: "fire"}}]);
-console.log(Cobermon)
+const Cobermon = new Pokemon(
+  800,
+  "Cobermon",
+  [{ name: "Rage" }],
+  6,
+  250,
+  (abilities = [{ ability: { name: "fight" } }]),
+  [{ type: { name: "fire" } }]
+);
 
-const newButton = document.querySelector("#newCard");
-newButton.addEventListener("click", function() {
-  populateDOM(Cobermon);
-});
+
+function addButton() {
+  let add = document.createElement("button");
+  add.setAttribute("class", "scene btn");
+  // add.textContent = font;
+  mainArea.appendChild(add);
+
+  add.addEventListener("click", function() {
+    populateDOM(Cobermon);
+  });
+
+  add.onmouseover = function() {
+    this.setAttribute(
+      "style", `background-color: #555;`);
+  };
+
+  add.onmouseleave = function() {
+    this.setAttribute("style", `border: none`);
+  };
+}
 
 home.textContent = "HOME";
 all.textContent = "ALL POKEMON";
@@ -72,15 +100,22 @@ for (var i = 0; i < typeDrop.length; i++) {
   container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(
     typeDrop[i]
   )};"></div> ${typeDrop[i]} </li></ul>`;
-  // console.log(color(typeDrop[i]));
 }
 
 // now, use the returned async data
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
+  addButton();
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
       populateDOM(pokeData);
-      console.log(pokeData)
+    });
+  }
+});
+
+const theData2 = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20").then(data => {
+  for (const pokemon of data.results) {
+    getAPIData(pokemon.url).then(pokeData2 => {
+      populateDOM(pokeData2);
     });
   }
 });
@@ -123,7 +158,9 @@ function populateDOM(single_pokemon) {
 
   name.textContent = capitalize(`${single_pokemon.name}`);
   height.textContent = `Height: ${single_pokemon.height}`;
-  powers.textContent = `Abilities: ${capitalize(single_pokemon.abilities[0].ability.name)}`;
+  powers.textContent = `Abilities: ${capitalize(
+    single_pokemon.abilities[0].ability.name
+  )}`;
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
