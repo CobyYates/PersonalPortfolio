@@ -30,6 +30,7 @@ let typeDrop = [
   "water"
 ];
 
+// Constructor
 class Pokemon {
   constructor(id, name, forms, height, weight, abilities, types) {
     this.id = id;
@@ -41,8 +42,10 @@ class Pokemon {
     this.types = types;
   }
 }
+
+// Instantiation of new Pokemon object
 const Cobermon = new Pokemon(
-  800,
+  808,
   "Cobermon",
   [{ name: "Rage" }],
   6,
@@ -51,41 +54,50 @@ const Cobermon = new Pokemon(
   [{ type: { name: "fire" } }]
 );
 
-
-
-function searchButton() {
-  let add = document.createElement("button");
-  add.setAttribute("class", "scene btn");
-  mainArea.appendChild(add);
-}
-
-const newButton = document.querySelector("#test")
+//Add new Pokemon by typing in number
+const newButton = document.querySelector("#search");
 newButton.addEventListener("click", function() {
-  let pokeId = prompt("Enter id number")
-  if(pokeId > 0 && pokeId <= 807) {
-  getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
-  .then(result => {
-    populateDOM(result)
-  })
-}
-else{
+  let pokeId = prompt("Enter Pokemon number between 1 & 807");
+  if (pokeId > 0 && pokeId <= 807) {
+    getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeId}`).then(result => {
+      populateDOM(result);
+    });
+  } else {
     // Get the snackbar DIV
     var x = document.getElementById("snackbar");
     // Add the "show" class to DIV
-    x.className = "show";  
+    x.className = "show";
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function() {
+      x.className = x.className.replace("show", "");
+    }, 3000);
   }
-})
+});
 
+//Button to add an instance of the Pokemon Class
+function addButton() {	
+  let add = document.createElement("button");	
+  add.setAttribute("class", "scene btn");	
+  mainArea.appendChild(add);	
 
+  add.addEventListener("click", function() {	
+    populateDOM(Cobermon);	
+  });	
+
+  add.onmouseover = function() {	
+    this.setAttribute(	
+      "style", `background-color: #555;`);	
+  };	
+
+  add.onmouseleave = function() {	
+    this.setAttribute("style", `border: none`);	
+  };	
+}
+
+// NAVIGATION
 home.textContent = "HOME";
-all.textContent = "ALL POKEMON";
-type.textContent = "TYPES";
-
 ul.appendChild(home);
 nav.appendChild(ul);
-
 home.addEventListener("click", function() {
   document.location.href = "index.html";
 });
@@ -101,16 +113,8 @@ async function getAPIData(url) {
   }
 }
 
-// To create and change the color of circles for types
-var container = document.getElementById("types");
-for (var i = 0; i < typeDrop.length; i++) {
-  container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(
-    typeDrop[i]
-  )};"></div> ${typeDrop[i]} </li></ul>`;
-}
-
 // now, use the returned async data
-const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
+const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=25").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
       populateDOM(pokeData);
@@ -118,23 +122,22 @@ const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
   }
 });
 
-const theData2 = getAPIData(
-  "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20"
-).then(data => {
-  for (const pokemon of data.results) {
-    getAPIData(pokemon.url).then(pokeData2 => {
-      populateDOM(pokeData2);
-    });
-  }
-});
 
+// HERO AREA - To create and change the color of circles for types
+var container = document.getElementById("types");
+for (var i = 0; i < typeDrop.length; i++) {
+  container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(
+    typeDrop[i]
+  )};"></div> ${typeDrop[i]} </li></ul>`;
+}
+
+//To capitalize the first letter in passed value
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s[0].toUpperCase() + s.slice(1);
 };
 
-let mainArea = document.querySelector("main");
-
+//To figure out the correct image to show for each Pokemon
 function getPokeNumber(id) {
   if (id < 10) return `00${id}`;
   if (id > 9 && id < 100) {
@@ -142,8 +145,11 @@ function getPokeNumber(id) {
   } else return id;
 }
 
+
+let mainArea = document.querySelector("main");
 addButton();
 
+//Function to append card elements into Main
 function populateDOM(single_pokemon) {
   let pokeScene = document.createElement("div");
   let pokeDiv = document.createElement("div");
@@ -160,7 +166,7 @@ function populateDOM(single_pokemon) {
   let tipes = document.createElement("div");
 
   pokeScene.setAttribute("class", "scene");
-  tipes.setAttribute("class", "typesArr");
+  tipes.setAttribute("class", "pre");
   pokeDiv.setAttribute("class", "card");
   pokeFront.setAttribute("class", "card__face card__face--front");
   pokeBack.setAttribute("class", "card__face card__face--back");
@@ -178,8 +184,7 @@ function populateDOM(single_pokemon) {
   pokeId.textContent = `ID: ${single_pokemon.id}`;
   forms.textContent = `Forms: ${capitalize(single_pokemon.forms[0].name)}`;
 
-  // pic.src = `../assets/images/${pokeNum}.png`;
-  pic.src = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${pokeNum}.png`
+  pic.src = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${pokeNum}.png`;
 
   pokeFront.appendChild(pic);
   pokeFront.appendChild(name);
@@ -202,6 +207,7 @@ function populateDOM(single_pokemon) {
     pokeDiv.classList.toggle("is-flipped");
   });
 
+  //For outlining each card with the color corresponding to the 'type'
   let type = single_pokemon.types[0].type.name;
 
   pokeDiv.onmouseover = function() {
@@ -214,25 +220,20 @@ function populateDOM(single_pokemon) {
   pokeDiv.onmouseleave = function() {
     this.setAttribute("style", `border: none`);
   };
-}
 
-function addButton() {
-  let add = document.createElement("button");
-  add.setAttribute("class", "scene btn");
-  mainArea.appendChild(add);
-}
+  tipes.innerHTML = "Types: " + single_pokemon.types.map(t => 
+    `<div class="types" style="color: ${color(type)}">${t.type.name}</div>`).join('')
 
-add.addEventListener("click", function() {
-  populateDOM(Cobermon);
-});
+}//end card function
 
-add.onmouseover = function() {
-  this.setAttribute("style", `background-color: #555;`);
-};
+// let single_pokemon = JSON.parse(document.querySelector('.pre').textContent)
 
-add.onmouseleave = function() {
-  this.setAttribute("style", `border: none`);
-};
+// single_pokemon.types.map(t => {
+//   let div = document.createElement('div')
+//   div.classList = 'pokeType poke-info'
+//   div.textContent = t.type.name
+//   return div
+// }).foreach(elm => pokeBack.document.body.appendChild(elm))
 
 function color(type) {
   if (type === "fire") {
