@@ -1,8 +1,6 @@
 /*
 TO DO
--Filtering by type colors on top
-- Add button effects
-- Add multiple types/abilities (google how to do for loop through object prop)
+- 
 */
 
 // Navigation
@@ -53,6 +51,34 @@ const Cobermon = new Pokemon(
   [{ type: { name: "fire" } }]
 );
 
+
+
+function searchButton() {
+  let add = document.createElement("button");
+  add.setAttribute("class", "scene btn");
+  mainArea.appendChild(add);
+}
+
+const newButton = document.querySelector("#test")
+newButton.addEventListener("click", function() {
+  let pokeId = prompt("Enter id number")
+  if(pokeId > 0 && pokeId <= 807) {
+  getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
+  .then(result => {
+    populateDOM(result)
+  })
+}
+else{
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";  
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+})
+
+
 home.textContent = "HOME";
 all.textContent = "ALL POKEMON";
 type.textContent = "TYPES";
@@ -87,8 +113,6 @@ for (var i = 0; i < typeDrop.length; i++) {
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
-      simpleFilter(pokeData)
-      console.log(pokeData)
       populateDOM(pokeData);
     });
   }
@@ -118,13 +142,6 @@ function getPokeNumber(id) {
   } else return id;
 }
 
-/*let testing = document.querySelector("#test");
-function simpleFilter(pokeList) {
-  testing.addEventListener("click", () => {
-    // console.log(pokeList.name.filter(name => types.type.name === "fire"));
-  });
-}*/
-
 addButton();
 
 function populateDOM(single_pokemon) {
@@ -140,8 +157,10 @@ function populateDOM(single_pokemon) {
   let pokeId = document.createElement("p");
   let forms = document.createElement("p");
   let hr = document.createElement("hr");
+  let tipes = document.createElement("div");
 
   pokeScene.setAttribute("class", "scene");
+  tipes.setAttribute("class", "typesArr");
   pokeDiv.setAttribute("class", "card");
   pokeFront.setAttribute("class", "card__face card__face--front");
   pokeBack.setAttribute("class", "card__face card__face--back");
@@ -159,7 +178,8 @@ function populateDOM(single_pokemon) {
   pokeId.textContent = `ID: ${single_pokemon.id}`;
   forms.textContent = `Forms: ${capitalize(single_pokemon.forms[0].name)}`;
 
-  pic.src = `../assets/images/${pokeNum}.png`;
+  // pic.src = `../assets/images/${pokeNum}.png`;
+  pic.src = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${pokeNum}.png`
 
   pokeFront.appendChild(pic);
   pokeFront.appendChild(name);
@@ -170,6 +190,7 @@ function populateDOM(single_pokemon) {
   pokeBack.appendChild(powers);
   pokeBack.appendChild(height);
   pokeBack.appendChild(weight);
+  pokeBack.appendChild(tipes);
 
   pokeDiv.appendChild(pokeFront);
   pokeDiv.appendChild(pokeBack);
@@ -199,19 +220,19 @@ function addButton() {
   let add = document.createElement("button");
   add.setAttribute("class", "scene btn");
   mainArea.appendChild(add);
-
-  add.addEventListener("click", function() {
-    populateDOM(Cobermon);
-  });
-
-  add.onmouseover = function() {
-    this.setAttribute("style", `background-color: #555;`);
-  };
-
-  add.onmouseleave = function() {
-    this.setAttribute("style", `border: none`);
-  };
 }
+
+add.addEventListener("click", function() {
+  populateDOM(Cobermon);
+});
+
+add.onmouseover = function() {
+  this.setAttribute("style", `background-color: #555;`);
+};
+
+add.onmouseleave = function() {
+  this.setAttribute("style", `border: none`);
+};
 
 function color(type) {
   if (type === "fire") {
