@@ -402,11 +402,21 @@ function typeFilter(typeSelected) {
     );
     
     console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-    console.log(typeof(foundPokemon));
+    console.log(foundPokemon);
     console.groupEnd();
-    populateDOM(foundPokemon)
+    deleteNodes(mainArea)
+    for (const pokemon of foundPokemon) {
+      populateDOM(pokemon)
+    }
+    // populateDOM(foundPokemon)
   });
 // });
+}
+
+function deleteNodes(container) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild)
+  }
 }
 
 // let fire = document.querySelector(".fire");
