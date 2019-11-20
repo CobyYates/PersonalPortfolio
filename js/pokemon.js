@@ -29,6 +29,8 @@ let typeDrop = [
   "steel",
   "water"
 ];
+let fire = [];
+let flying = [];
 
 // Constructor
 class Pokemon {
@@ -50,7 +52,10 @@ const Cobermon = new Pokemon(
   [{ name: "Rage" }],
   6,
   250,
-  (abilities = [{ ability: { name: "fight" } }]),
+  (abilities = [
+    { ability: { name: "fight" } },
+    { ability: { name: "procrastination" } }
+  ]),
   [{ type: { name: "fire" } }]
 );
 
@@ -63,11 +68,8 @@ newButton.addEventListener("click", function() {
       populateDOM(result);
     });
   } else {
-    // Get the snackbar DIV
     var x = document.getElementById("snackbar");
-    // Add the "show" class to DIV
     x.className = "show";
-    // After 3 seconds, remove the show class from DIV
     setTimeout(function() {
       x.className = x.className.replace("show", "");
     }, 3000);
@@ -75,23 +77,22 @@ newButton.addEventListener("click", function() {
 });
 
 //Button to add an instance of the Pokemon Class
-function addButton() {	
-  let add = document.createElement("button");	
-  add.setAttribute("class", "scene btn");	
-  mainArea.appendChild(add);	
+function addButton() {
+  let add = document.createElement("button");
+  add.setAttribute("class", "scene btn");
+  mainArea.appendChild(add);
 
-  add.addEventListener("click", function() {	
-    populateDOM(Cobermon);	
-  });	
+  add.addEventListener("click", function() {
+    populateDOM(Cobermon);
+  });
 
-  add.onmouseover = function() {	
-    this.setAttribute(	
-      "style", `background-color: #555;`);	
-  };	
+  add.onmouseover = function() {
+    this.setAttribute("style", `background-color: #555;`);
+  };
 
-  add.onmouseleave = function() {	
-    this.setAttribute("style", `border: none`);	
-  };	
+  add.onmouseleave = function() {
+    this.setAttribute("style", `border: none`);
+  };
 }
 
 // NAVIGATION
@@ -113,23 +114,50 @@ async function getAPIData(url) {
   }
 }
 
-// now, use the returned async data
-const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=25").then(data => {
-  for (const pokemon of data.results) {
-    getAPIData(pokemon.url).then(pokeData => {
-      populateDOM(pokeData);
-    });
-  }
-});
+// let allPokemon = []
 
+// async function forAllPokemon(callback){
+//   let data = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=25')
+//   data = await data.json()
+
+//   if(pokemonList) {
+
+//   }
+
+//   data.results.forEach(async(p) => {
+//     await fetch(p.url).then(async(res) => {
+//       const jason = await res.json()
+//       pokemonList.push(json)
+//       if(pokemonList.length == data.results.length) callback(pokemonList)
+//     })
+//   })
+// }
 
 // HERO AREA - To create and change the color of circles for types
 var container = document.getElementById("types");
 for (var i = 0; i < typeDrop.length; i++) {
-  container.innerHTML += `<ul> <li> <div class="circle" style="background-color: ${color(
+  container.innerHTML += `<ul> <li> <div class="circle ${
     typeDrop[i]
-  )};"></div> ${typeDrop[i]} </li></ul>`;
+  }" style="background-color: ${color(typeDrop[i])};"></div> ${
+    typeDrop[i]
+  } </li></ul>`;
 }
+
+const selectType = document.querySelector("main");
+function deleteCards() {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
+
+/*
+selectType.addEventListener('click' => {
+  const result = document.querySelector('.result')
+  deleteCards()
+  if (`${event.target.className}` === "fire")
+  populateDOM()
+})
+*/
 
 //To capitalize the first letter in passed value
 const capitalize = s => {
@@ -144,7 +172,6 @@ function getPokeNumber(id) {
     return `0${id}`;
   } else return id;
 }
-
 
 let mainArea = document.querySelector("main");
 addButton();
@@ -176,9 +203,9 @@ function populateDOM(single_pokemon) {
 
   name.textContent = capitalize(`${single_pokemon.name}`);
   height.textContent = `Height: ${single_pokemon.height}`;
-  powers.textContent = `Abilities: ${capitalize(
-    single_pokemon.abilities[0].ability.name
-  )}`;
+  // powers.textContent = `Abilities: ${capitalize(
+  //   single_pokemon.abilities[0].ability.name
+  // )}`;
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
@@ -221,10 +248,25 @@ function populateDOM(single_pokemon) {
     this.setAttribute("style", `border: none`);
   };
 
-  tipes.innerHTML = "Types: " + single_pokemon.types.map(t => 
-    `<div class="types" style="color: ${color(type)}">${t.type.name}</div>`).join('')
+  tipes.innerHTML =
+    "Types: " +
+    single_pokemon.types
+      .map(
+        t =>
+          `<div class="types" style="color: ${color(type)}">${
+            t.type.name
+          }</div>`
+      )
+      .join("");
 
-}//end card function
+  powers.innerHTML =
+    "Abilities: " +
+    single_pokemon.abilities
+      .map(p => `<div class="abilities">${capitalize(p.ability.name)}</div>`)
+      .join("");
+
+  //single_pokemon.abilities[0].ability.name
+} //end card function
 
 // let single_pokemon = JSON.parse(document.querySelector('.pre').textContent)
 
