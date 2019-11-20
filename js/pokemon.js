@@ -162,22 +162,6 @@ async function forAllPokemon(callback) {
   }
 }
 
-// let fire = document.querySelector(".fire");
-// fire.addEventListener("click", function() {
-//   forAllPokemon(allData => {
-//     // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
-
-//     const FILTER_BY_TYPE = "fire";
-//     const foundPokemon = allData.filter(p =>
-//       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
-//     );
-
-//     console.group(`fire: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-//     console.log(foundPokemon);
-//     console.groupEnd();
-//   });
-// });
-
 forAllPokemon(allData => {
   const FILTER_BY_TYPE = "bug";
   const foundPokemon = allData.filter(p =>
@@ -214,11 +198,9 @@ const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
 // HERO AREA - To create and change the color of circles for types
 var container = document.getElementById("types");
 for (var i = 0; i < typeDrop.length; i++) {
-  container.innerHTML += `<ul> <li> <div class="circle" id="${
-    typeDrop[i]
-  }" style="background-color: ${color(typeDrop[i])};"></div> ${
-    typeDrop[i]
-  } </li></ul>`;
+  container.innerHTML += `<ul> <li id="${typeDrop[i]}"> 
+  <div id="${typeDrop[i]}" class="circle" style="background-color: ${color(typeDrop[i])};"></div>
+   ${typeDrop[i]} </li></ul>`;
 }
 
 const selectType = document.querySelector("main");
@@ -400,8 +382,9 @@ theParent.addEventListener("click", doSomething, false)
 
 function doSomething(e) {
   if (e.target != e.currentTarget) {
-    let clickedItem = e.target.textContent
-    // alert("hello " + clickedItem)
+    // let clickedItem = `${e.target.textContent}`
+    let clickedItem = e.target.id
+    // console.log(typeof(clickedItem))
     typeFilter(clickedItem)
   }
   // e.stopPropagation()
@@ -413,17 +396,34 @@ function typeFilter(typeSelected) {
     // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
 
     const FILTER_BY_TYPE = typeSelected;
+    // console.log(typeof(typeSelected))
     const foundPokemon = allData.filter(p =>
       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
     );
-
+    
     console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-    console.log(foundPokemon);
+    console.log(typeof(foundPokemon));
     console.groupEnd();
+    populateDOM(foundPokemon)
   });
 // });
 }
 
+// let fire = document.querySelector(".fire");
+// fire.addEventListener("click", function() {
+//   forAllPokemon(allData => {
+//     // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
+
+//     const FILTER_BY_TYPE = "fire";
+//     const foundPokemon = allData.filter(p =>
+//       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
+//     );
+
+//     console.group(`fire: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
+//     console.log(foundPokemon);
+//     console.groupEnd();
+//   });
+// });
 
 /* 
 Add multiple abilities
