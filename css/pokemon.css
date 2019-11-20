@@ -126,6 +126,8 @@ header {
 .request {
   display: flex;
   justify-content: center;
+  padding-bottom: 100px;
+  padding-top: 30px;
 }
 
 #search {
@@ -237,11 +239,14 @@ hr {
 .btn:active { transform: scale(1); outline: none; }
 
 /* TOAST */
+.toast {
+  display: flex;
+  justify-content: center;
+}
 
 #snackbar {
   visibility: hidden; 
   min-width: 250px; 
-  margin-left: -125px; 
   background-color: rgb(168, 168, 168); 
   color: #fff; 
   text-align: center;
@@ -249,7 +254,6 @@ hr {
   padding: 16px;
   position: fixed; 
   z-index: 1; 
-  left: 45%; 
   display: flex;
   justify-content: center;
   bottom: 30px;

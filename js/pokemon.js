@@ -59,6 +59,13 @@ const Cobermon = new Pokemon(
   [{ type: { name: "fire" } }]
 );
 
+//Map function, not working yet
+const typeReduce = typeDrop.reduce((acc, pokemon) => {
+  return acc += pokemon.length //96
+}, 0)
+console.log(typeReduce)
+
+
 //Add new Pokemon by typing in number
 const newButton = document.querySelector("#search");
 newButton.addEventListener("click", function() {
@@ -68,7 +75,7 @@ newButton.addEventListener("click", function() {
       populateDOM(result);
     });
   } else {
-    var x = document.getElementById("snackbar");
+    var x = document.querySelector(".sBar1");
     x.className = "show";
     setTimeout(function() {
       x.className = x.className.replace("show", "");
@@ -114,32 +121,7 @@ async function getAPIData(url) {
   }
 }
 
-/*
-let allPokemon = [];
-async function forAllPokemon(callback) {
-  if (allPokemon.length == 0) {
-    let data = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=25");
-    data = await data.json();
-    let pokemonList = [];
-
-    data.results.forEach(async p => {
-      await fetch(p.url).then(async res => {
-        const json = await res.json();
-        pokemonList.push(json);
-        // console.log(`pokemonId:${json.id}, ${allPokemon.length}, ${data.results.length}`);
-        if (pokemonList.length == data.results.length) {
-          allPokemon = pokemonList;
-          // console.log(allPokemon.length == pokemonList.length);
-          callback(allPokemon);
-        }
-        // if(pokemonList.length == data.results.length) callback(pokemonList);
-      });
-    });
-  } else {
-    callback(allPokemon);
-  }
-}*/
-
+//async function to help with passed filter id
 async function forAllPokemon(callback) {
   const dataKey = "allPokemon";
   if (sessionStorage.getItem(dataKey) === null) {
@@ -161,17 +143,6 @@ async function forAllPokemon(callback) {
     callback(JSON.parse(sessionStorage.getItem(dataKey)));
   }
 }
-
-forAllPokemon(allData => {
-  const FILTER_BY_TYPE = "bug";
-  const foundPokemon = allData.filter(p =>
-    p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
-  );
-
-  console.group(`bug: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-  console.log(foundPokemon);
-  console.groupEnd();
-});
 
 // Reusable async function to fetch data from url param in the function call
 async function getAPIData(url) {
@@ -195,11 +166,23 @@ const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
   }
 });
 
+const theData2 = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=20").then(
+  data => {
+    for (const pokemon of data.results) {
+      getAPIData(pokemon.url).then(pokeData2 => {
+        populateDOM(pokeData2);
+      });
+    }
+  }
+);
+
 // HERO AREA - To create and change the color of circles for types
 var container = document.getElementById("types");
 for (var i = 0; i < typeDrop.length; i++) {
   container.innerHTML += `<ul> <li id="${typeDrop[i]}"> 
-  <div id="${typeDrop[i]}" class="circle" style="background-color: ${color(typeDrop[i])};"></div>
+  <div id="${typeDrop[i]}" class="circle" style="background-color: ${color(
+    typeDrop[i]
+  )};"></div>
    ${typeDrop[i]} </li></ul>`;
 }
 
@@ -209,15 +192,6 @@ function deleteCards() {
     container.removeChild(container.firstChild);
   }
 }
-
-/*
-selectType.addEventListener('click' => {
-  const result = document.querySelector('.result')
-  deleteCards()
-  if (`${event.target.className}` === "fire")
-  populateDOM()
-})
-*/
 
 //To capitalize the first letter in passed value
 const capitalize = s => {
@@ -311,21 +285,14 @@ function populateDOM(single_pokemon) {
   tipes.innerHTML =
     "Types: " +
     single_pokemon.types
-      .map(
-        t =>
-          `<div class="types" style="color: ${color(type)}">${
-            t.type.name
-          }</div>`
-      )
-      .join("");
+      .map(t => `<div class="types" style="color: ${color(type)}">${t.type.name}</div>`)
+        .join("");
 
   powers.innerHTML =
     "Abilities: " +
     single_pokemon.abilities
       .map(p => `<div class="abilities">${capitalize(p.ability.name)}</div>`)
       .join("");
-
-  //single_pokemon.abilities[0].ability.name
 } //end card function
 
 // let single_pokemon = JSON.parse(document.querySelector('.pre').textContent)
@@ -377,66 +344,52 @@ function color(type) {
   }
 }
 
-let theParent = document.querySelector('#types')
-theParent.addEventListener("click", doSomething, false)
+let theParent = document.querySelector("#types");
+theParent.addEventListener("click", doSomething, false);
 
 function doSomething(e) {
   if (e.target != e.currentTarget) {
-    // let clickedItem = `${e.target.textContent}`
-    let clickedItem = e.target.id
-    // console.log(typeof(clickedItem))
-    typeFilter(clickedItem)
+    let clickedItem = e.target.id;
+    typeFilter(clickedItem);
   }
-  // e.stopPropagation()
+  e.stopPropagation()
 }
 
 function typeFilter(typeSelected) {
-// fire.addEventListener("click", function() {
   forAllPokemon(allData => {
-    // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
-
     const FILTER_BY_TYPE = typeSelected;
-    // console.log(typeof(typeSelected))
     const foundPokemon = allData.filter(p =>
       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
     );
-    
+
     console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
     console.log(foundPokemon);
     console.groupEnd();
-    deleteNodes(mainArea)
-    for (const pokemon of foundPokemon) {
-      populateDOM(pokemon)
+    if (foundPokemon.length >= 1) {
+      deleteNodes(mainArea);
+      for (const pokemon of foundPokemon) {
+        populateDOM(pokemon);
+      }
+    } else {
+      var x = document.querySelector(".sBar2");
+      x.className = "show";
+      setTimeout(function() {
+        x.className = x.className.replace("show", "");
+      }, 3000);
     }
-    // populateDOM(foundPokemon)
-  });
-// });
+  });  
 }
 
 function deleteNodes(container) {
   while (container.firstChild) {
-    container.removeChild(container.firstChild)
+    container.removeChild(container.firstChild);
   }
 }
 
-// let fire = document.querySelector(".fire");
-// fire.addEventListener("click", function() {
-//   forAllPokemon(allData => {
-//     // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
-
-//     const FILTER_BY_TYPE = "fire";
-//     const foundPokemon = allData.filter(p =>
-//       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
-//     );
-
-//     console.group(`fire: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-//     console.log(foundPokemon);
-//     console.groupEnd();
-//   });
-// });
-
 /* 
-Add multiple abilities
+Add map function to show how many cards there are
+When filtering, replace image errors with pokeball
 Figure out best colors and designs for cards
-Add Base HP from video
+Fix card colors so types don't blur
+Fix size of cards when 1 to 2 cards. They are huge!
 */
