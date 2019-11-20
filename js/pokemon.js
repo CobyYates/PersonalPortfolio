@@ -29,8 +29,8 @@ let typeDrop = [
   "steel",
   "water"
 ];
-let fire = [];
-let flying = [];
+// let fire = [];
+// let flying = [];
 
 // Constructor
 class Pokemon {
@@ -114,29 +114,107 @@ async function getAPIData(url) {
   }
 }
 
-// let allPokemon = []
+/*
+let allPokemon = [];
+async function forAllPokemon(callback) {
+  if (allPokemon.length == 0) {
+    let data = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=25");
+    data = await data.json();
+    let pokemonList = [];
 
-// async function forAllPokemon(callback){
-//   let data = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=25')
-//   data = await data.json()
+    data.results.forEach(async p => {
+      await fetch(p.url).then(async res => {
+        const json = await res.json();
+        pokemonList.push(json);
+        // console.log(`pokemonId:${json.id}, ${allPokemon.length}, ${data.results.length}`);
+        if (pokemonList.length == data.results.length) {
+          allPokemon = pokemonList;
+          // console.log(allPokemon.length == pokemonList.length);
+          callback(allPokemon);
+        }
+        // if(pokemonList.length == data.results.length) callback(pokemonList);
+      });
+    });
+  } else {
+    callback(allPokemon);
+  }
+}*/
 
-//   if(pokemonList) {
+async function forAllPokemon(callback) {
+  const dataKey = "allPokemon";
+  if (sessionStorage.getItem(dataKey) === null) {
+    let data = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=25");
+    data = await data.json();
+    let pokemonList = [];
 
-//   }
+    data.results.forEach(async p => {
+      await fetch(p.url).then(async res => {
+        const json = await res.json();
+        pokemonList.push(json);
+        if (pokemonList.length == data.results.length) {
+          sessionStorage.setItem(dataKey, JSON.stringify(pokemonList)); // store data in session storage (until browser closes) as a cache
+          callback(pokemonList);
+        }
+      });
+    });
+  } else {
+    callback(JSON.parse(sessionStorage.getItem(dataKey)));
+  }
+}
 
-//   data.results.forEach(async(p) => {
-//     await fetch(p.url).then(async(res) => {
-//       const jason = await res.json()
-//       pokemonList.push(json)
-//       if(pokemonList.length == data.results.length) callback(pokemonList)
-//     })
-//   })
-// }
+// let fire = document.querySelector(".fire");
+// fire.addEventListener("click", function() {
+//   forAllPokemon(allData => {
+//     // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
+
+//     const FILTER_BY_TYPE = "fire";
+//     const foundPokemon = allData.filter(p =>
+//       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
+//     );
+
+//     console.group(`fire: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
+//     console.log(foundPokemon);
+//     console.groupEnd();
+//   });
+// });
+
+forAllPokemon(allData => {
+  const FILTER_BY_TYPE = "bug";
+  const foundPokemon = allData.filter(p =>
+    p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
+  );
+
+  console.group(`bug: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
+  console.log(foundPokemon);
+  console.groupEnd();
+});
+
+// Reusable async function to fetch data from url param in the function call
+async function getAPIData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// now, use the returned async data
+const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
+  for (const pokemon of data.results) {
+    getAPIData(pokemon.url).then(pokeData => {
+      // simpleFilter(pokeData)
+      // console.log(pokeData)
+      populateDOM(pokeData);
+    });
+  }
+});
 
 // HERO AREA - To create and change the color of circles for types
 var container = document.getElementById("types");
 for (var i = 0; i < typeDrop.length; i++) {
-  container.innerHTML += `<ul> <li> <div class="circle ${
+  container.innerHTML += `<ul> <li> <div class="circle" id="${
     typeDrop[i]
   }" style="background-color: ${color(typeDrop[i])};"></div> ${
     typeDrop[i]
@@ -316,6 +394,36 @@ function color(type) {
     return "#1742FF";
   }
 }
+
+let theParent = document.querySelector('#types')
+theParent.addEventListener("click", doSomething, false)
+
+function doSomething(e) {
+  if (e.target != e.currentTarget) {
+    let clickedItem = e.target.textContent
+    // alert("hello " + clickedItem)
+    typeFilter(clickedItem)
+  }
+  // e.stopPropagation()
+}
+
+function typeFilter(typeSelected) {
+// fire.addEventListener("click", function() {
+  forAllPokemon(allData => {
+    // this arrow function could be extracted as a separate function if it is repeated to keep code DRY
+
+    const FILTER_BY_TYPE = typeSelected;
+    const foundPokemon = allData.filter(p =>
+      p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
+    );
+
+    console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
+    console.log(foundPokemon);
+    console.groupEnd();
+  });
+// });
+}
+
 
 /* 
 Add multiple abilities
