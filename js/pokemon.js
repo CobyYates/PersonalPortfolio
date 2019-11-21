@@ -156,11 +156,9 @@ async function getAPIData(url) {
 }
 
 // now, use the returned async data
-const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/").then(data => {
+const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=50").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
-      // simpleFilter(pokeData)
-      // console.log(pokeData)
       populateDOM(pokeData);
     });
   }
@@ -304,43 +302,54 @@ function populateDOM(single_pokemon) {
 //   return div
 // }).foreach(elm => pokeBack.document.body.appendChild(elm))
 
+//finding a single object key value
+function getHP(pokemonID) {
+  getAPIData(`https://pokeapi.com/api/v2/pokemon/${pokemonID}`)
+    .then(pokemon => {
+      const HP = pokemon.stats.find(element => {
+        return element.stat.name === "hp"
+      })
+      return HP.base_stat
+    })
+}
+
 function color(type) {
   if (type === "fire") {
-    return "red";
+    return "#EE8130";
   } else if (type === "flying") {
-    return "blue";
+    return "#A98FF3";
   } else if (type === "bug") {
-    return "green";
+    return "#A6B91A";
   } else if (type === "dark") {
-    return "black";
+    return "#705746";
   } else if (type === "dragon") {
-    return "#148DEB";
+    return "#6F35FC";
   } else if (type === "electric") {
-    return "yellow";
+    return "#F7D02C";
   } else if (type === "fairy") {
-    return "#FF2D67";
+    return "#D685AD";
   } else if (type === "fighting") {
-    return "orange";
+    return "#C22E28";
   } else if (type === "ghost") {
-    return "#541482";
+    return "#735797";
   } else if (type === "grass") {
-    return "green";
+    return "#7AC74C";
   } else if (type === "ground") {
-    return "brown";
+    return "#E2BF65";
   } else if (type === "ice") {
-    return "#6CEDFF";
+    return "#96D9D6";
   } else if (type === "normal") {
-    return "#FFA292";
+    return "#A8A77A";
   } else if (type === "poison") {
-    return "#7025FF";
+    return "#A33EA1";
   } else if (type === "psychic") {
-    return "#FF1C79";
+    return "#F95587";
   } else if (type === "rock") {
-    return "#209E70";
+    return "#B6A136";
   } else if (type === "steel") {
-    return "#209E71";
+    return "#B7B7CE";
   } else if (type === "water") {
-    return "#1742FF";
+    return "#6390F0";
   }
 }
 

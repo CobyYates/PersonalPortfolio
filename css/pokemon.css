@@ -2,6 +2,7 @@ html {
   font-family: 'Bangers', cursive;  
   color: white;
   background-color: #232323;
+  cursor: url("http://www.rw-designer.com/cursor-view/61446.gif"),auto;
 }
 
 :root {
@@ -136,6 +137,7 @@ header {
   color: white;
   padding: 20px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 /* MAIN / CARDS */
