@@ -2,7 +2,6 @@ html {
   font-family: 'Bangers', cursive;  
   color: white;
   background-color: #232323;
-  cursor: url("http://www.rw-designer.com/cursor-view/61446.gif"),auto;
 }
 
 :root {
@@ -153,6 +152,7 @@ main {
   
 .scene {
   width: 100%;
+  max-width: 250px;
   height: 350px;
   margin: 40px 0;
   perspective: 600px;
@@ -237,7 +237,7 @@ hr {
   letter-spacing: 2px;
 }
 
-.btn:hover { transform: scale(1.02); outline: none; }
+.btn:hover { transform: scale(1.02); outline: none; cursor: pointer;}
 .btn:active { transform: scale(1); outline: none; }
 
 /* TOAST */

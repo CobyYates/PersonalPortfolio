@@ -1,11 +1,3 @@
-/*
-Make a list at the top that shows how many...
--Democrats
--Republicans
--Males
--Females
-*/
-
 async function getAPIData(url) {
   try {
     const response = await fetch(url);
@@ -32,10 +24,6 @@ const theData = getAPIData("senators.json").then(data => {
   heroContent("Democrats", democrats.length)
   heroContent("Independents", independents.length)
   heroContent("Oldest Senator", oldestSenator(simpleSenators).name)
-  // console.log(totalVotes(simpleSenators));
-  // console.log(republicans)
-  // console.log(oldestSenator(simpleSenators))
-  //console.log(sortSenatorsByAge(simpleSenators))  //Swtiching these changes the order of the senators
   populateDOM(simpleSenators);
 });
 
@@ -54,8 +42,7 @@ function simpleMap(arr) {
         Senate Class: ${senator.senate_class}
         Next Election: ${senator.next_election}`,
       missed: senator.missed_votes,
-      // You can use code from journal for star wars pilot to find highest percentage
-      // party_votes: votes_with_party_pct
+      image: `https://www.congress.gov/img/member/${senator.id.toLowerCase()}_200.jpg`,
     };
   });
   return results;
@@ -129,7 +116,7 @@ function populateDOM(senator_arr) {
     figure.setAttribute("class", "image is-4by4");
 
     let figureImage = document.createElement("img");
-    figureImage.src = `https://www.congress.gov/img/member/${senator.id.toLowerCase()}_200.jpg`;
+    figureImage.src = senator.image;
 
     figureImage.alt = "Placeholder image";
 
@@ -198,14 +185,8 @@ function cardContent(senator) {
   votesTitle.setAttribute("class", "title is-4 has-text-white");
   votesTitle.textContent = `-Votes-`;
 
-  // let totalVotes = document.createElement("p");
-  // totalVotes.textContent = `Total: ${senator.total_votes}`;
-
   let missedVotes = document.createElement("p");
   missedVotes.textContent = `Missed: ${senator.missed}`;
-
-  // let totalPresent = document.createElement("p");
-  // totalPresent.textContent = `Present: ${senator.present}`;
 
   let age = document.createElement("p");
   age.textContent = `Age: ${senator.age}`;
@@ -217,11 +198,6 @@ function cardContent(senator) {
   media.appendChild(mediaLeft);
 
   media.appendChild(mediaContent);
-  // content.appendChild(votesTitle);
-  // content.appendChild(votes);
-  // votes.appendChild(totalVotes);
-  // votes.appendChild(missedVotes);
-  // votes.appendChild(totalPresent);
   content.appendChild(age);
 
   cardContent.appendChild(media);

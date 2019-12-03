@@ -14,6 +14,7 @@
 html {
     color: white;
     font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
 
 h1 {
@@ -36,24 +37,22 @@ p {
 #navbar {
     display: block;
     display: flex;
-    justify-content: flex-end;
     position: fixed;
-    background-color: var(--green);
     top: 0;
     width: 100%;
     z-index: 10;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 #navbar ul {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     margin: 0;
     width: 100%;
+    padding-left: 0;
 }
 
-#navbar ul :hover {
-    background-color: #666;
+#navbar ul li img {
+    height: 50px;
 }
 
 #navbar ul li {
@@ -62,9 +61,10 @@ p {
     align-items: center;
     justify-content: center;
     padding: 1vh;
-    font-size: 1rem;
+    font-size: .75rem;
     height: 40px;
     width: 70px;
+    color: grey;
 }
 
 /* BODY */

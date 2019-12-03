@@ -29,8 +29,6 @@ let typeDrop = [
   "steel",
   "water"
 ];
-// let fire = [];
-// let flying = [];
 
 // Constructor
 class Pokemon {
@@ -63,7 +61,7 @@ const Cobermon = new Pokemon(
 const typeReduce = typeDrop.reduce((acc, pokemon) => {
   return acc += pokemon.length //96
 }, 0)
-console.log(typeReduce)
+// console.log(typeReduce)
 
 
 //Add new Pokemon by typing in number
@@ -164,16 +162,6 @@ const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=50").then(d
   }
 });
 
-const theData2 = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=20").then(
-  data => {
-    for (const pokemon of data.results) {
-      getAPIData(pokemon.url).then(pokeData2 => {
-        populateDOM(pokeData2);
-      });
-    }
-  }
-);
-
 // HERO AREA - To create and change the color of circles for types
 var container = document.getElementById("types");
 for (var i = 0; i < typeDrop.length; i++) {
@@ -235,9 +223,6 @@ function populateDOM(single_pokemon) {
 
   name.textContent = capitalize(`${single_pokemon.name}`);
   height.textContent = `Height: ${single_pokemon.height}`;
-  // powers.textContent = `Abilities: ${capitalize(
-  //   single_pokemon.abilities[0].ability.name
-  // )}`;
 
   weight.textContent = `Weight: ${single_pokemon.weight}`;
   pokeId.textContent = `ID: ${single_pokemon.id}`;
@@ -272,12 +257,14 @@ function populateDOM(single_pokemon) {
   pokeDiv.onmouseover = function() {
     this.setAttribute(
       "style",
-      `border: 3px solid ${color(type)}; border-radius: 7px`
+      `border: 2px solid ${color(type)}; border-radius: 7px`
     );
+    gsap.to(".scene:hover", { duration: .5, scale: 1.02});
   };
 
   pokeDiv.onmouseleave = function() {
     this.setAttribute("style", `border: none`);
+    gsap.to(".scene", { duration: .5, scale: 1});
   };
 
   tipes.innerHTML =
@@ -292,15 +279,6 @@ function populateDOM(single_pokemon) {
       .map(p => `<div class="abilities">${capitalize(p.ability.name)}</div>`)
       .join("");
 } //end card function
-
-// let single_pokemon = JSON.parse(document.querySelector('.pre').textContent)
-
-// single_pokemon.types.map(t => {
-//   let div = document.createElement('div')
-//   div.classList = 'pokeType poke-info'
-//   div.textContent = t.type.name
-//   return div
-// }).foreach(elm => pokeBack.document.body.appendChild(elm))
 
 //finding a single object key value
 function getHP(pokemonID) {
@@ -371,9 +349,9 @@ function typeFilter(typeSelected) {
       p.types.map(t => t.type.name).includes(FILTER_BY_TYPE)
     );
 
-    console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
-    console.log(foundPokemon);
-    console.groupEnd();
+    // console.group(`${typeSelected}: ${foundPokemon.length}`); // formatted output of found objects in console (best in browser)
+    // console.log(foundPokemon);
+    // console.groupEnd();
     if (foundPokemon.length >= 1) {
       deleteNodes(mainArea);
       for (const pokemon of foundPokemon) {
@@ -397,8 +375,5 @@ function deleteNodes(container) {
 
 /* 
 Add map function to show how many cards there are
-When filtering, replace image errors with pokeball
 Figure out best colors and designs for cards
-Fix card colors so types don't blur
-Fix size of cards when 1 to 2 cards. They are huge!
 */

@@ -3,21 +3,20 @@
 This is the home for Coby Yates' Personal Portfolio
 Started Fall Semester 2019
 
-[Portfolio Netlify Link](https://cobyyates.netlify.com/)
+* [Portfolio Netlify Link](https://cobyyates.netlify.com/)
 
-[Personal Interests Netlify Link](https://coberspersonalinterests.netlify.com/)
+* [Personal Interests Netlify Link](https://coberspersonalinterests.netlify.com/)
 
-[Star Wars Netlify Link](https://cobyyates.netlify.com/starwars.html)
+* [Star Wars Netlify Link](https://cobyyates.netlify.com/starwars.html)
 
-[Senators Netlify Link](https://cobyyates.netlify.com/pokemon.html)
+* [Senators Netlify Link](https://cobyyates.netlify.com/pokemon.html)
 
-[Baseball Cards Netlify Link](https://cobyyates.netlify.com/senator.html)
+* [Baseball Cards Netlify Link](https://cobyyates.netlify.com/pokemon.html)
 # Requirements
 
 ## Basic JavaScript
 
 ### Proper use of variables with proper scope
-
 ```JavaScript
 let notHuman = (() => {
   otherCharacters.forEach(character => {
