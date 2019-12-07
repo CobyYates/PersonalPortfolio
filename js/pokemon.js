@@ -10,24 +10,10 @@ let home = document.createElement("li");
 let all = document.createElement("li");
 let type = document.createElement("li");
 let typeDrop = [
-  "fire",
-  "flying",
-  "bug",
-  "dark",
-  "dragon",
-  "electric",
-  "fairy",
-  "fighting",
-  "ghost",
-  "grass",
-  "ground",
-  "ice",
-  "normal",
-  "poison",
-  "psychic",
-  "rock",
-  "steel",
-  "water"
+  "fire", "flying", "bug", "dark", "dragon",
+  "electric", "fairy", "fighting", "ghost",
+  "grass", "ground", "ice", "normal", "poison",
+  "psychic", "rock", "steel", "water"
 ];
 
 // Constructor
@@ -45,11 +31,7 @@ class Pokemon {
 
 // Instantiation of new Pokemon object
 const Cobermon = new Pokemon(
-  808,
-  "Cobermon",
-  [{ name: "Rage" }],
-  6,
-  250,
+  808, "Cobermon", [{ name: "Rage" }], 6, 250, 
   (abilities = [
     { ability: { name: "fight" } },
     { ability: { name: "procrastination" } }
@@ -61,7 +43,6 @@ const Cobermon = new Pokemon(
 const typeReduce = typeDrop.reduce((acc, pokemon) => {
   return acc += pokemon.length //96
 }, 0)
-// console.log(typeReduce)
 
 
 //Add new Pokemon by typing in number
