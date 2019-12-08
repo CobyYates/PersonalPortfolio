@@ -241,6 +241,12 @@ body {
       font-size: 4rem;
     }
 
+    .skills {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
     .project-grid {
         text-align: center;
         display: grid;
@@ -264,6 +270,10 @@ body {
     .d {grid-area: d;}
     .e {grid-area: e;}
     .f {grid-area: f;}
+
+    .projects {
+        height: 2000px;
+    }
 
   }
 
