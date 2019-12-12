@@ -17,6 +17,7 @@ Started Fall Semester 2019
 ## Basic JavaScript
 
 ### Proper use of variables with proper scope
+
 ```JavaScript
 let notHuman = (() => {
   otherCharacters.forEach(character => {

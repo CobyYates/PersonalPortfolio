@@ -118,8 +118,7 @@ body {
 
 .projects-overlay {
     background: rgba(196, 196, 196, 0.075);
-    height: 100vh;
-    /* padding-bottom: 150px; */
+    /* height: 100vh; */
 }
 
 .projects h2 {
@@ -158,7 +157,7 @@ body {
 .favorites {
     background-color: var(--green);
     text-align: center;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .favorites h2 {
