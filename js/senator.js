@@ -137,7 +137,7 @@ function cardContent(senator) {
   let cardContent = document.createElement("div");
   cardContent.setAttribute(
     "class",
-    "card-content has-background-grey-darker has-text-white"
+    "card-content"
   );
 
   let media = document.createElement("div");
@@ -167,11 +167,11 @@ function cardContent(senator) {
   mediaContent.setAttribute("class", "media-content");
 
   let titleP = document.createElement("p");
-  titleP.setAttribute("class", "title is-5 has-text-white");
+  titleP.setAttribute("class", "title is-5 ");
   titleP.textContent = senator.name;
 
   let subTitleP = document.createElement("p");
-  subTitleP.setAttribute("class", "subtitle is-6 has-text-white");
+  subTitleP.setAttribute("class", "subtitle is-6 ");
   subTitleP.textContent = senator.title;
 
   let content = document.createElement("div");
@@ -182,7 +182,7 @@ function cardContent(senator) {
   votes.setAttribute("class", "votes is-flex");
 
   let votesTitle = document.createElement("h3");
-  votesTitle.setAttribute("class", "title is-4 has-text-white");
+  votesTitle.setAttribute("class", "title is-4 ");
   votesTitle.textContent = `-Votes-`;
 
   let missedVotes = document.createElement("p");
