@@ -11,6 +11,11 @@
     --blue: #5784C2;
 }
 
+i {
+    font-size: 2rem;
+    color: white;
+}
+
 html {
     color: white;
     font-family: 'Poppins', sans-serif;

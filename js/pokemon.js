@@ -1,8 +1,3 @@
-/*
-TO DO
-- 
-*/
-
 // Navigation
 let nav = document.querySelector("nav");
 let ul = document.createElement("ul");
@@ -69,6 +64,7 @@ function addButton() {
   mainArea.appendChild(add);
 
   add.addEventListener("click", function() {
+    console.log(Cobermon)
     populateDOM(Cobermon);
   });
 
@@ -138,6 +134,7 @@ async function getAPIData(url) {
 const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=50").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
+      console.log(pokeData)
       populateDOM(pokeData);
     });
   }
