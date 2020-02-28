@@ -115,6 +115,7 @@ async function forAllPokemon(callback) {
         if (pokemonList.length == data.results.length) {
           sessionStorage.setItem(dataKey, JSON.stringify(pokemonList)); // store data in session storage (until browser closes) as a cache
           callback(pokemonList);
+          console.log(pokemonList)
         }
       });
     });
@@ -135,7 +136,7 @@ async function getAPIData(url) {
 }
 
 // now, use the returned async data
-const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=50").then(data => {
+const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=25").then(data => {
   for (const pokemon of data.results) {
     getAPIData(pokemon.url).then(pokeData => {
       populateDOM(pokeData);
